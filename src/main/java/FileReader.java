@@ -1,5 +1,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import main.java.Node;
 import java.io.File;
@@ -16,10 +19,28 @@ public class FileReader
     // longName,
     // shortName
 
+    private static void connection()
+    {
+        try {
+            // substitute your database name for myDB
+            Connection connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            // create table -- insert data
+
+
+        } catch (SQLException e) {
+            System.out.println("Connection failed. Check output console.");
+            e.printStackTrace();
+            return;
+        }
+
+    }
+
     private static LinkedList<Node> nodeList = new LinkedList<Node>();
 
     public static void readFile()
     {
+        connection();
+
         String fileName = "PrototypeNodes.csv";
 
         BufferedReader br = null;

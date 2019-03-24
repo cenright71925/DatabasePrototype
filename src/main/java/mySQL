@@ -1,0 +1,41 @@
+
+
+CREATE TABLE Node (nodeID Varchar(10) Primary Key, xCoord INTEGER, yCoord INTEGER, floor INTEGER, building Varchar(20), nodeType Varchar(4), longName Varchar(200), shortName Varchar(50));
+
+PreparedStatement pstmt1 = connection.prepareStatement("Insert into Node values (? ? ? ? ? ? ?)")
+
+pstmt.setString(1, tempNodeID);
+pstmt.setString(2, tempXCoord);
+pstmt.setString(3, tempYCoord);
+pstmt.setString(4, tempFloor);
+pstmt.setString(5, tempBuilding);
+pstmt.setString(6, tempNodeType);
+pstmt.setString(7, tempLongName);
+pstmt.setString(8, tempShortName);
+
+PreparedStatement pstmt2 = connection.prepareStatement("SELECT * FROM Node")
+
+
+
+
+
+
+
+//Insert into Employee values ('1234', 'Anna', 'Kendrick', 'Greeter', 100000, 10, 'Regular', '1000');
+
+
+    private String nodeID;
+    private int xCoord; //long or int???
+    private int yCoord;
+    private int floor;
+    private String building;
+    private String nodeType;
+    private String longName;
+    private String shortName;
+
+
+
+
+//CREATE TABLE Room (Room_Number INTEGER Primary Key, Occupied CHAR(1), Constraint occVal check (Occupied in ('T', 'F')));
+
+//CREATE TABLE Employee (eid Varchar(20) Primary Key, First_Name Varchar(20), Last_Name Varchar(20), Job_Title Varchar(20), Salary REAL, Office_Number INTEGER, empRank Varchar(15), supervisorID Varchar(20));

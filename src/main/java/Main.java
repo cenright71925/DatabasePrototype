@@ -4,6 +4,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.File;
+
 public class Main extends Application {
 
     @Override
@@ -13,12 +15,12 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
 
-        FileReader.readFile();
-
     }
 
-
     public static void main(String[] args) {
+
+        //FileReader.connection();
+        FileReader.readFile();
         launch(args);
 
 
