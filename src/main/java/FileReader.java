@@ -1,0 +1,76 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.LinkedList;
+import main.java.Node;
+import java.io.File;
+import java.nio.file.Files;
+
+public class FileReader
+{
+    //nodeID,
+    // xcoord,
+    // ycoord,
+    // floor,
+    // building,
+    // nodeType,
+    // longName,
+    // shortName
+
+    private static LinkedList<Node> nodeList = new LinkedList<Node>();
+
+    public static void readFile()
+    {
+        String fileName = "PrototypeNodes.csv";
+
+        BufferedReader br = null;
+        String line = "";
+        String splitBy = ",";
+
+        String tempNodeID;
+        int tempXCoord; //long or int???
+        int tempYCoord;
+        int tempFloor;
+        String tempBuilding;
+        String tempNodeType;
+        String tempLongName;
+        String tempShortName;
+
+        try{
+
+            br = new BufferedReader(new java.io.FileReader("PrototypeNodes.csv"));
+
+           while((line = br.readLine()) != null)
+           {
+               String[] lineArray = line.split(splitBy);
+
+               tempNodeID = lineArray[0];
+               tempXCoord = Integer.parseInt(lineArray[1]); //long or int???
+               tempYCoord = Integer.parseInt(lineArray[2]);
+               tempFloor = Integer.parseInt(lineArray[3]);
+               tempBuilding = lineArray[4];
+               tempNodeType = lineArray[5];
+               tempLongName = lineArray[6];
+               tempShortName = lineArray[7];
+
+               System.out.println("tempNodeID is: " + tempNodeID);
+
+                nodeList.add(new Node(tempNodeID, tempXCoord, tempYCoord, tempFloor,
+                        tempBuilding, tempNodeType, tempLongName, tempShortName));
+
+
+           }
+
+
+        }  catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public LinkedList<Node> getNodes()
+    {
+        return nodeList;
+    }
+
+
+}
