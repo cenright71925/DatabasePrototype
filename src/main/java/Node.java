@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 
+
 public class Node
 {
     //nodeID,
@@ -47,6 +48,37 @@ public class Node
         this.shortName = shortName;
     }
 
+    public String getNodeID() {
+        return nodeID;
+    }
+
+    public int getXCoord() {
+        return xCoord;
+    }
+
+    public int getYCoord() {
+        return yCoord;
+    }
+
+    public int getFloor() {
+        return floor;
+    }
+
+    public String getBuilding() {
+        return building;
+    }
+
+    public String getNodeType() {
+        return nodeType;
+    }
+
+    public String getLongName() {
+        return longName;
+    }
+
+    public String getShortName() {
+        return shortName;
+    }
     // idea: might be good to have a seperate class for holding the connection instead of the file reader class
     // or connection could be established in main and be passed to methods as needed
     // but connection should be private to a class so no one can mess with it.

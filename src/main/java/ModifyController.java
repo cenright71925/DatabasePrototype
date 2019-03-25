@@ -12,10 +12,10 @@ import java.util.ResourceBundle;
 
 public class ModifyController implements Initializable {
 
-    @FXML
-    Button btnConfirm;
-    @FXML
-    TextField nodeIDTF, xCoordTF, yCoordTF, floorTF, buildingTF, nodeTypeTF, longNameTF, shortNameTF;
+    @FXML Button btnEdit;
+    @FXML Button btnAdd;
+    @FXML Button btnDelete;
+    @FXML TextField nodeIDTF, xCoordTF, yCoordTF, floorTF, buildingTF, nodeTypeTF, longNameTF, shortNameTF, enterNodeIDTF;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -25,13 +25,31 @@ public class ModifyController implements Initializable {
     }
 
     @FXML
-    public void confirmOnClick(ActionEvent event) throws IOException{
+    public void addOnClick(ActionEvent event) throws  IOException{
+
+        //bellow closes the pop up window, everything above this in this method should handle the inputs from the TFs
+        Stage stage;
+        stage = (Stage) btnAdd.getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    public void deleteOnClick(ActionEvent event) throws  IOException{
+
+        //bellow closes the pop up window, everything above this in this method should handle the inputs from the TFs
+        Stage stage;
+        stage = (Stage) btnDelete.getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    public void editOnClick(ActionEvent event) throws IOException{
         //.getText will read the TextField into a String that can then be put somewhere (like the database...)
         System.out.println(nodeIDTF.getText());
 
         //bellow closes the pop up window, everything above this in this method should handle the inputs from the TFs
         Stage stage;
-        stage = (Stage) btnConfirm.getScene().getWindow();
+        stage = (Stage) btnEdit.getScene().getWindow();
         stage.close();
     }
 }
