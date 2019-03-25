@@ -2,7 +2,7 @@
 
 CREATE TABLE Node (nodeID Varchar(10) Primary Key, xCoord INTEGER, yCoord INTEGER, floor INTEGER, building Varchar(20), nodeType Varchar(4), longName Varchar(200), shortName Varchar(50));
 
-PreparedStatement pstmt1 = connection.prepareStatement("Insert into Node values (? ? ? ? ? ? ?)")
+PreparedStatement pstmt = connection.prepareStatement("Insert into Node values (?, ?, ?, ?, ?, ?, ?)")
 
 pstmt.setString(1, tempNodeID);
 pstmt.setString(2, tempXCoord);

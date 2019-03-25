@@ -19,11 +19,12 @@ public class FileReader
     // longName,
     // shortName
 
+    private static Connection connection;
     private static void connection()
     {
         try {
             // substitute your database name for myDB
-            Connection connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
             // create table -- insert data
 
 
