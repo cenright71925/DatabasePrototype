@@ -4,6 +4,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.File;
+
 public class Main extends Application {
 
     @Override
@@ -20,6 +22,7 @@ public class Main extends Application {
 
         //FileReader.connection();
         FileReader.readFile();
+        FileReader.displayDBdata();
         launch(args);
 
 
