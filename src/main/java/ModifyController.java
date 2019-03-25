@@ -2,6 +2,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -15,13 +16,42 @@ public class ModifyController implements Initializable {
     @FXML Button btnEdit;
     @FXML Button btnAdd;
     @FXML Button btnDelete;
+    @FXML Button btnLoadNode;
     @FXML TextField nodeIDTF, xCoordTF, yCoordTF, floorTF, buildingTF, nodeTypeTF, longNameTF, shortNameTF, enterNodeIDTF;
+    @FXML Label errorLabel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //set TF with the node's current values (bellow is just examples)
-        nodeIDTF.setText("Hello");
-        xCoordTF.setText("World");
+        nodeIDTF.setDisable(true);
+        xCoordTF.setDisable(true);
+        yCoordTF.setDisable(true);
+        floorTF.setDisable(true);
+        buildingTF.setDisable(true);
+        nodeTypeTF.setDisable(true);
+        longNameTF.setDisable(true);
+        shortNameTF.setDisable(true);
+        btnEdit.setDisable(true);
+        btnDelete.setDisable(true);
+        btnAdd.setDisable(true);
+    }
+
+    @FXML
+    public void loadOnClick(ActionEvent event){
+
+        if(enterNodeIDTF.getText().length() > 5){
+            xCoordTF.setDisable(false);
+            yCoordTF.setDisable(false);
+            floorTF.setDisable(false);
+            buildingTF.setDisable(false);
+            nodeTypeTF.setDisable(false);
+            longNameTF.setDisable(false);
+            shortNameTF.setDisable(false);
+            btnAdd.setDisable(false);
+            btnDelete.setDisable(false);
+            btnEdit.setDisable(false);
+
+            nodeIDTF.setText(enterNodeIDTF.getText());
+        }
     }
 
     @FXML

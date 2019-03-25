@@ -31,9 +31,8 @@ public class MainController implements Initializable {
     @FXML TableColumn<Node, String> shortNameCol;
 
 
-    @Override //this code runs as soon as the program boots up. start() in the Main class also does that. but here is for UI things
+    @Override //this code runs as soon as the program boots up.
     public void initialize(URL location, ResourceBundle resources) {
-        //btnModify.setDisable(true); //code to disable the Modify Node button until a node is selected from the table
 
         nodeIDCol.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
         xCoordCol.setCellValueFactory(new PropertyValueFactory<>("xCoord"));
@@ -43,10 +42,10 @@ public class MainController implements Initializable {
         nodeTypeCol.setCellValueFactory(new PropertyValueFactory<>("nodeType"));
         longNameCol.setCellValueFactory(new PropertyValueFactory<>("longName"));
         shortNameCol.setCellValueFactory(new PropertyValueFactory<>("shortName"));
-        tableView.setItems(getNodes());
+        tableView.setItems(getLocalNodes());
     }
 
-    public ObservableList<Node> getNodes(){
+    public ObservableList<Node> getLocalNodes(){
         ObservableList<Node> nodes = FXCollections.observableArrayList();
         nodes.add(new Node("BCONF00112", 675, 1231, 2, "45 Francis", "CONF", "Duncan Reef Conference Room", "B0102"));
         nodes.add(new Node("BCONF12321", 456, 1211, 3, "35 Camiles", "CONF", "Big Ass Room", "BAR"));
@@ -61,6 +60,7 @@ public class MainController implements Initializable {
     @FXML
     public void readOnClick(ActionEvent event){
         //here put code to start the reading of the CSV file and populating the table full of data
+
 
     }
 
