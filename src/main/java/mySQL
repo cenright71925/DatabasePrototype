@@ -1,7 +1,7 @@
-
-
+// for creating the node table
 CREATE TABLE Node (nodeID Varchar(10) Primary Key, xCoord INTEGER, yCoord INTEGER, floor INTEGER, building Varchar(20), nodeType Varchar(4), longName Varchar(200), shortName Varchar(50));
 
+// for sending the node to the table
 PreparedStatement pstmt = connection.prepareStatement("Insert into Node values (?, ?, ?, ?, ?, ?, ?)")
 
 pstmt.setString(1, tempNodeID);
@@ -13,12 +13,18 @@ pstmt.setString(6, tempNodeType);
 pstmt.setString(7, tempLongName);
 pstmt.setString(8, tempShortName);
 
+pmst.execute
+
 PreparedStatement pstmt2 = connection.prepareStatement("SELECT * FROM Node")
 
+// remove a node
 
 
+// edit a node
 
 
+ability to add a node, remove a node, and edit a node
+if you could work on the sql statements for those funciobs that would be great
 
 
 //Insert into Employee values ('1234', 'Anna', 'Kendrick', 'Greeter', 100000, 10, 'Regular', '1000');
