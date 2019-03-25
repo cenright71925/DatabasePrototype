@@ -97,17 +97,17 @@ public class Node
         }
         // table already exists
         catch(java.sql.SQLException e){
-            throw e;
+            throw new java.sql.SQLException("Node table already exists");
         }
 
     }
 
     // adds a node to the given connection
-    public void addNode(Connection connection){
+    public void addNode(Connection connection) throws java.sql.SQLException{
         try{
             PreparedStatement nodeStatement = connection.prepareStatement("Insert into Node values (?, ?, ?, ?, ?, ?, ?, ?)");
 
-            // can you mix prepared statement types?
+            // can you mix prepared statement types? setString vs setNString?
             nodeStatement.setString(1, nodeID);
             nodeStatement.setString(2, String.valueOf(xCoord));
             nodeStatement.setString(3, String.valueOf(yCoord));
@@ -131,12 +131,33 @@ public class Node
             }
             // table already exists, handled here
             catch(java.sql.SQLException ie){
-                System.out.println("Table already exists, a different error occurred");
+                // ie passed from checkTable()
+                System.out.println(ie.getErrorCode());
+                throw ie;
             }
         }
     }
 
-    public void deleteNode(Connection connection){
+    public void deleteNode(Connection connection, String nodeName) throws java.sql.SQLException{
+        try{
+            Statement nodeDelete = connection.createStatement();
+            // the string format seems unnecessary
+            String deleteStatement = String.format("DELETE FROM Node WHERE nodeID=nodeName:%s", nodeName);
+            nodeDelete.execute(deleteStatement);
+        }
+        catch(java.sql.SQLException e){
+            try{
+                checkTable(connection);
+            }
+            // table exists, but the node doesn't exist
+            catch(java.sql.SQLException ie){
+                System.out.println(ie.getErrorCode());
+                throw new java.sql.SQLException("Node does not exist in table");
+            }
+        }
+    }
+
+    public void editNode(Connection connection, String nodeName) throws java.sql.SQLException{
 
     }
 }
