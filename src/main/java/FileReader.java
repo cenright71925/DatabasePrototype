@@ -30,21 +30,19 @@ public class FileReader
         } catch (SQLException e) {
             System.out.println("Connection failed. Check output console.");
             e.printStackTrace();
-            return;
         }
 
     }
 
-    private static LinkedList<Node> nodeList = new LinkedList<Node>();
-
-    public static void readFile()
+    private static LinkedList<Node> nodeList = new LinkedList<>();
+    static void readFile()
     {
         connection();
 
         String fileName = "PrototypeNodes.csv";
 
-        BufferedReader br = null;
-        String line = "";
+        BufferedReader br;
+        String line;
         String splitBy = ",";
 
         String tempNodeID;
@@ -58,27 +56,30 @@ public class FileReader
 
         try{
 
-            br = new BufferedReader(new java.io.FileReader("PrototypeNodes.csv"));
+            br = new BufferedReader(new java.io.FileReader("src\\main\\resources\\PrototypeNodes.csv"));
 
            while((line = br.readLine()) != null)
            {
-               String[] lineArray = line.split(splitBy);
+               try {
+                   String[] lineArray = line.split(splitBy);
 
-               tempNodeID = lineArray[0];
-               tempXCoord = Integer.parseInt(lineArray[1]); //long or int???
-               tempYCoord = Integer.parseInt(lineArray[2]);
-               tempFloor = Integer.parseInt(lineArray[3]);
-               tempBuilding = lineArray[4];
-               tempNodeType = lineArray[5];
-               tempLongName = lineArray[6];
-               tempShortName = lineArray[7];
+                   tempNodeID = lineArray[0];
+                   tempXCoord = Integer.parseInt(lineArray[1]); //long or int???
+                   tempYCoord = Integer.parseInt(lineArray[2]);
+                   tempFloor = Integer.parseInt(lineArray[3]);
+                   tempBuilding = lineArray[4];
+                   tempNodeType = lineArray[5];
+                   tempLongName = lineArray[6];
+                   tempShortName = lineArray[7];
 
-               System.out.println("tempNodeID is: " + tempNodeID);
+                   System.out.println("tempNodeID is: " + tempNodeID);
 
-                nodeList.add(new Node(tempNodeID, tempXCoord, tempYCoord, tempFloor,
-                        tempBuilding, tempNodeType, tempLongName, tempShortName));
-
-
+                   nodeList.add(new Node(tempNodeID, tempXCoord, tempYCoord, tempFloor,
+                           tempBuilding, tempNodeType, tempLongName, tempShortName));
+               }
+               catch(java.lang.NumberFormatException e){
+                   System.out.println("Incorrect Node format, ignored");
+               }
            }
 
 
