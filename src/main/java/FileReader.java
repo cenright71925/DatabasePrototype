@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.LinkedList;
-import main.java.Node;
+//import main.java.Node;
 import java.io.File;
 import java.nio.file.Files;
 
@@ -25,8 +25,8 @@ public class FileReader
         try {
             // substitute your database name for myDB
             connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
-            // create table -- insert data
-
+            // autoCommit should be false so an admin can agree to committing before done
+            connection.setAutoCommit(false);
 
         } catch (SQLException e) {
             System.out.println("Connection failed. Check output console.");
@@ -95,5 +95,7 @@ public class FileReader
         return nodeList;
     }
 
-
+    public static Connection getConnection() {
+        return connection;
+    }
 }
