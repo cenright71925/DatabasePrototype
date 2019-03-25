@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ModifyController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="350.0">
+               <children>
+                  <Label text="nodeID">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <JFXTextField fx:id="nodeIDTF" style="-fx-background-color: lightgray;" styleClass="textField" stylesheets="@Styles.css" />
+                  <Label text="xCoord">
+                     <VBox.margin>
+                        <Insets left="5.0" top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <JFXTextField style="-fx-background-color: lightgray;" styleClass="textField" stylesheets="@Styles.css" fx:id="xCoordTF" />
+                  <Label text="yCoord">
+                     <VBox.margin>
+                        <Insets left="5.0" top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <JFXTextField fx:id="yCoordTF" styleClass="textField" stylesheets="@Styles.css" />
+                  <Label text="floor">
+                     <VBox.margin>
+                        <Insets left="5.0" top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <JFXTextField fx:id="floorTF" styleClass="textField" stylesheets="@Styles.css" />
+                  <Label text="building">
+                     <VBox.margin>
+                        <Insets left="5.0" top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <JFXTextField fx:id="buildingTF" styleClass="textField" stylesheets="@Styles.css" />
+                  <Label text="nodeType">
+                     <VBox.margin>
+                        <Insets left="5.0" top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <JFXTextField fx:id="nodeTypeTF" styleClass="textField" stylesheets="@Styles.css" />
+                  <Label text="longName">
+                     <VBox.margin>
+                        <Insets left="5.0" top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <JFXTextField fx:id="longNameTF" styleClass="textField" stylesheets="@Styles.css" />
+                  <Label text="shortName">
+                     <VBox.margin>
+                        <Insets left="5.0" top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <JFXTextField fx:id="shortNameTF" styleClass="textField" stylesheets="@Styles.css" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="350.0">
+               <children>
+                  <JFXButton fx:id="btnConfirm" buttonType="RAISED" onAction="#confirmOnClick" style="-fx-background-color: white;" text="Confirm Modification">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
