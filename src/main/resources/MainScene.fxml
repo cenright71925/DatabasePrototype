@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -44,16 +44,16 @@
                   </JFXButton>
                </children>
             </HBox>
-            <TableView prefHeight="550.0">
+            <TableView fx:id="tableView" prefHeight="550.0">
               <columns>
-                  <TableColumn prefWidth="180.0" text="nodeID" />
-                  <TableColumn prefWidth="90.0" text="xCoord" />
-                <TableColumn prefWidth="90.0" text="yCoord" />
-                <TableColumn text="Floor" />
-                  <TableColumn prefWidth="150.0" text="Building" />
-                  <TableColumn text="nodeType" />
-                  <TableColumn prefWidth="170.0" text="longName" />
-                  <TableColumn prefWidth="97.0" text="shortName" />
+                  <TableColumn fx:id="nodeIDCol" prefWidth="120.0" text="nodeID" />
+                  <TableColumn text="xCoord" fx:id="xCoordCol" />
+                <TableColumn fx:id="yCoordCol" text="yCoord" />
+                <TableColumn fx:id="floorCol" prefWidth="50.0" text="Floor" />
+                  <TableColumn fx:id="buildingCol" prefWidth="120.0" text="Building" />
+                  <TableColumn fx:id="nodeTypeCol" text="nodeType" />
+                  <TableColumn fx:id="longNameCol" prefWidth="250.0" text="longName" />
+                  <TableColumn fx:id="shortNameCol" prefWidth="97.0" text="shortName" />
               </columns>
                <VBox.margin>
                   <Insets />

@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,8 +13,7 @@ public class Main extends Application {
         primaryStage.setTitle("Prototype Database Application");
         Scene scene= new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.show(); 
-
+        primaryStage.show();
     }
 
     public static void main(String[] args) {
@@ -22,6 +22,7 @@ public class Main extends Application {
         FileReader.readFile();
         launch(args);
 
-
     }
+
+
 }

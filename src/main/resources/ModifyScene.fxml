@@ -67,11 +67,35 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="350.0">
                <children>
-                  <JFXButton fx:id="btnConfirm" buttonType="RAISED" onAction="#confirmOnClick" style="-fx-background-color: white;" text="Confirm Modification">
+                  <Label text="Desired nodeID for Node">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="23.0" />
                      </font>
-                  </JFXButton>
+                  </Label>
+                  <JFXTextField fx:id="enterNodeIDTF" styleClass="textField" stylesheets="@Styles.css">
+                     <VBox.margin>
+                        <Insets left="20.0" right="20.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <JFXButton fx:id="btnAdd" buttonType="RAISED" onAction="#addOnClick" style="-fx-background-color: white;" stylesheets="@Styles.css" text="Add Node">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="btnDelete" buttonType="RAISED" onAction="#deleteOnClick" style="-fx-background-color: white;" text="Delete Node">
+                           <HBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                        <JFXButton fx:id="btnEdit" buttonType="RAISED" onAction="#editOnClick" style="-fx-background-color: white;" text="Edit Node">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </JFXButton>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>
