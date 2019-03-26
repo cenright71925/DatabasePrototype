@@ -167,6 +167,7 @@ public class Node
         try{
             // nodeID should not be changed
             // sets all parts of the object to account for changes
+
             this.xCoord = xCoord;
             this.yCoord = yCoord;
             this.floor = floor;
@@ -174,9 +175,10 @@ public class Node
             this.nodeType = nodeType;
             this.longName = longName;
             this.shortName = shortName;
-
-
-
+            Statement nodeDelete = connection.createStatement();
+            // the string format seems unnecessary
+            String deleteStatement = String.format("DELETE FROM Node WHERE nodeID=nodeName:%s", nodeID);
+            nodeDelete.execute(deleteStatement);
         }
         catch(java.sql.SQLException e){
 
