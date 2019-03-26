@@ -169,6 +169,13 @@ public class ModifyController implements Initializable {
         fileReaderNodeList.add(element, newNode);
         FileReader.setNodeList(fileReaderNodeList);
 
+        try{
+            delNode.editNode(xCoord, yCoord, floor, building, nodeType, longName, shortName);
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+
         //bellow closes the pop up window, everything above this in this method should handle the inputs from the TFs
         Stage stage;
         stage = (Stage) btnEdit.getScene().getWindow();
