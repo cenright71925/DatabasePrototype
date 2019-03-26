@@ -82,14 +82,14 @@ public class FileReader
 
                     PreparedStatement pstmt2 = connection.prepareStatement(insertLine);
 
-                    pstmt1.setString(1, tempNodeID);
-                    pstmt1.setString(2, tempXCoord);
-                    pstmt1.setString(3, tempYCoord);
-                    pstmt1.setString(4, tempFloor);
-                    pstmt1.setString(5, tempBuilding);
-                    pstmt1.setString(6, tempNodeType);
-                    pstmt1.setString(7, tempLongName);
-                    pstmt1.setString(8, tempShortName);
+                    pstmt2.setString(1, tempNodeID);
+                    pstmt2.setString(2, tempXCoord);
+                    pstmt2.setString(3, tempYCoord);
+                    pstmt2.setString(4, tempFloor);
+                    pstmt2.setString(5, tempBuilding);
+                    pstmt2.setString(6, tempNodeType);
+                    pstmt2.setString(7, tempLongName);
+                    pstmt2.setString(8, tempShortName);
 
                     pstmt1.executeUpdate();
 

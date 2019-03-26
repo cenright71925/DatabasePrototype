@@ -141,11 +141,11 @@ public class Node
         }
     }
 
-    public void deleteNode(Connection connection, String nodeID) throws java.sql.SQLException{
+    public void deleteNode(Connection connection) throws java.sql.SQLException{
         try{
             Statement nodeDelete = connection.createStatement();
             // the string format seems unnecessary
-            String deleteStatement = String.format("DELETE FROM Node WHERE nodeID=nodeName:%s", nodeID);
+            String deleteStatement = "DELETE FROM Node WHERE nodeID=" + nodeID;
             nodeDelete.execute(deleteStatement);
         }
         catch(java.sql.SQLException e){
@@ -154,7 +154,7 @@ public class Node
 //            }
 //            // table exists, but the node doesn't exist
 //            catch(java.sql.SQLException ie){
-            String exceptionString = String.format("NodeID nodeID:%s  does not exist in table", nodeID);
+            String exceptionString = String.format("NodeID nodeID:%s does not exist in table", nodeID);
             System.out.println(exceptionString);
             throw new java.sql.SQLException(exceptionString);
             //}
@@ -175,13 +175,15 @@ public class Node
             this.nodeType = nodeType;
             this.longName = longName;
             this.shortName = shortName;
-            Statement nodeDelete = connection.createStatement();
-            // the string format seems unnecessary
-            String deleteStatement = String.format("DELETE FROM Node WHERE nodeID=nodeName:%s", nodeID);
-            nodeDelete.execute(deleteStatement);
+            Statement nodeEdit = connection.createStatement();
+//            Statement nodeEdit = connection.createStatement("UPDATE Node ");
+//            // work on creating edit statement later
+//            // the string format seems unnecessary
+//            String editStatement = ;
+
         }
         catch(java.sql.SQLException e){
-
+            throw new java.sql.SQLException("Node does not exist");
         }
     }
 }
