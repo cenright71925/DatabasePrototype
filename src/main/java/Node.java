@@ -85,22 +85,22 @@ public class Node
 
     // checks if the table already exists
     // passes up an exception if the table doesn't exist
-    private void checkTable(Connection connection) throws java.sql.SQLException{
-        // checks if the table exists
-        // try: command to add the table
-        try{
-            Statement nodeTable = connection.createStatement();
-            String addNodeTableStatement = "CREATE TABLE Node (nodeID Varchar(10) Primary Key, xCoord INTEGER, yCoord INTEGER, floor INTEGER, building Varchar(20), nodeType Varchar(4), longName Varchar(200), shortName Varchar(50))";
-            nodeTable.execute(addNodeTableStatement);
-            // auto commit is turned off
-            connection.commit();
-        }
-        // table already exists
-        catch(java.sql.SQLException e){
-            throw new java.sql.SQLException("Node table already exists");
-        }
-
-    }
+//    private void checkTable(Connection connection) throws java.sql.SQLException{
+//        // checks if the table exists
+//        // try: command to add the table
+//        try{
+//            Statement nodeTable = connection.createStatement();
+//            String addNodeTableStatement = "CREATE TABLE Node (nodeID Varchar(10) Primary Key, xCoord INTEGER, yCoord INTEGER, floor INTEGER, building Varchar(20), nodeType Varchar(4), longName Varchar(200), shortName Varchar(50))";
+//            nodeTable.execute(addNodeTableStatement);
+//            // auto commit is turned off
+//            connection.commit();
+//        }
+//        // table already exists
+//        catch(java.sql.SQLException e){
+//            throw new java.sql.SQLException("Node table already exists");
+//        }
+//
+//    }
 
     // adds a node to the given connection
     public void addNode(Connection connection) throws java.sql.SQLException{
@@ -122,42 +122,63 @@ public class Node
             connection.commit();
         }
         // table does not exist or some other error happened
-        catch (java.sql.SQLException e){
-            // calls check table to make sure it exists
-            try{
-                checkTable(connection);
-                // calls the function again now that the table exists
-                addNode(connection);
-            }
-            // table already exists, handled here
-            catch(java.sql.SQLException ie){
-                // ie passed from checkTable()
-                System.out.println(ie.getErrorCode());
-                throw ie;
-            }
+        catch (java.sql.SQLException e) {
+//            // calls check table to make sure it exists
+//            try{
+//                checkTable(connection);
+//                // calls the function again now that the table exists
+//                addNode(connection);
+//            }
+//            // table already exists, nodeID is already in that table
+//            catch(java.sql.SQLException ie){
+//                // ie passed from checkTable()
+//                System.out.println(ie.getMessage());
+            String exceptionString = String.format("NodeID nodeID:%s already exists", nodeID);
+            System.out.println(exceptionString);
+            throw new java.sql.SQLException(exceptionString);
+            //}
         }
     }
 
-    public void deleteNode(Connection connection, String nodeName) throws java.sql.SQLException{
+    public void deleteNode(Connection connection, String nodeID) throws java.sql.SQLException{
         try{
             Statement nodeDelete = connection.createStatement();
             // the string format seems unnecessary
-            String deleteStatement = String.format("DELETE FROM Node WHERE nodeID=nodeName:%s", nodeName);
+            String deleteStatement = String.format("DELETE FROM Node WHERE nodeID=nodeName:%s", nodeID);
             nodeDelete.execute(deleteStatement);
         }
         catch(java.sql.SQLException e){
-            try{
-                checkTable(connection);
-            }
-            // table exists, but the node doesn't exist
-            catch(java.sql.SQLException ie){
-                System.out.println(ie.getErrorCode());
-                throw new java.sql.SQLException("Node does not exist in table");
-            }
+//            try{
+//                checkTable(connection);
+//            }
+//            // table exists, but the node doesn't exist
+//            catch(java.sql.SQLException ie){
+            String exceptionString = String.format("NodeID nodeID:%s  does not exist in table", nodeID);
+            System.out.println(exceptionString);
+            throw new java.sql.SQLException(exceptionString);
+            //}
         }
     }
 
-    public void editNode(Connection connection, String nodeName) throws java.sql.SQLException{
+    // should only be called to submit an edit, will change the object as necessary
+    public void editNode(Connection connection, String nodeID, int xCoord, int yCoord, int floor, String building,
+                         String nodeType, String longName, String shortName) throws java.sql.SQLException{
+        try{
+            // nodeID should not be changed
+            // sets all parts of the object to account for changes
+            this.xCoord = xCoord;
+            this.yCoord = yCoord;
+            this.floor = floor;
+            this.building = building;
+            this.nodeType = nodeType;
+            this.longName = longName;
+            this.shortName = shortName;
 
+
+
+        }
+        catch(java.sql.SQLException e){
+
+        }
     }
 }

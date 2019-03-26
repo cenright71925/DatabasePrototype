@@ -18,10 +18,13 @@ pmst.execute
 PreparedStatement pstmt2 = connection.prepareStatement("SELECT * FROM Node")
 
 // remove a node
-    "SELECT  FROM Node"
-
+    DELETE FROM Node WHERE nodeID='nodeName'
+    nodeName is a variable
 
 // edit a node
+    UPDATE
+    SET xCoord ='xCoored', yCoord ='yCoored'
+    WHERE nodeID='nodeID'
 
 
 ability to add a node, remove a node, and edit a node
