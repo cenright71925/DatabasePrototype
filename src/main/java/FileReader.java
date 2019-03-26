@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.sql.*;
 import java.util.LinkedList;
 //import main.java.Node;
@@ -64,14 +66,23 @@ public class FileReader
 
         try{
 
-            br = new BufferedReader(new java.io.FileReader("src\\main\\resources\\PrototypeNodes.csv"));
+            String path = "file:///" + System.getProperty("user.dir") + File.separator + "src" +  File.separator + "main" + File.separator + "resources" + File.separator + "PrototypeNodes.csv";
+            URL filePath = new URL(path);
+            File csvFile = new File(filePath.toURI());
+            br = new BufferedReader(new java.io.FileReader(csvFile));
 
             try{
                 String createTable = "CREATE TABLE Node (nodeID Varchar(10) Primary Key, xCoord INTEGER, yCoord INTEGER, floor INTEGER, building Varchar(20), nodeType Varchar(4), longName Varchar(200), shortName Varchar(50))";
                 PreparedStatement pstmt1 = connection.prepareStatement(createTable);
                 pstmt1.executeUpdate();
+
+                System.out.println("created table w/o dropping");
+
             }
             catch(SQLException e){
+
+                System.out.println("got to drop table catch block");
+
                 try {
                     String dropTable = "DROP TABLE Node";
                     PreparedStatement pstmt0 = connection.prepareStatement(dropTable);
@@ -86,8 +97,14 @@ public class FileReader
                 }
             }
 
+            int count = 0;
+
             while((line = br.readLine()) != null)
             {
+
+                System.out.println("current line of csv: " + count);
+                count++;
+
                 try {
                     String[] lineArray = line.split(splitBy);
 
@@ -122,6 +139,7 @@ public class FileReader
 
                     pstmt2.executeUpdate();
 
+                    System.out.println("node inserted:" + count);
 
                 }
                 catch(java.lang.NumberFormatException | SQLException e){
@@ -137,7 +155,7 @@ public class FileReader
             }
 
 
-        }  catch (IOException e) {
+        }  catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
 
