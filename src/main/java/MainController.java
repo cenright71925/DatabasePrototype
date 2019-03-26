@@ -48,7 +48,7 @@ public class MainController implements Initializable {
         longNameCol.setCellValueFactory(new PropertyValueFactory<>("longName"));
         shortNameCol.setCellValueFactory(new PropertyValueFactory<>("shortName"));
         //tableView.setItems(getNodes());
-        FileReader.readFile();
+        DBController.readFile();
         btnModify.setDisable(true);
         btnDownload.setDisable(true);
         btnUpdate.setDisable(true);
@@ -65,7 +65,7 @@ public class MainController implements Initializable {
         //here put code to start the reading of the CSV file and populating the table full of data
 
         tableNodeList.removeAll();
-        LinkedList<Node> fileReaderNodeList = FileReader.getNodeList();
+        LinkedList<Node> fileReaderNodeList = DBController.getNodeList();
         //System.out.println(FileReader.nodeList);
         for(Node n: fileReaderNodeList)
         {
@@ -91,7 +91,7 @@ public class MainController implements Initializable {
     @FXML
     public void updateOnClick(){
         tableNodeList.clear();
-        LinkedList<Node> fileReaderNodeList = FileReader.getNodeList();
+        LinkedList<Node> fileReaderNodeList = DBController.getNodeList();
         for(Node n: fileReaderNodeList)
         {
             tableNodeList.add(n);

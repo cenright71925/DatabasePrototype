@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 import java.io.File;
 
-public class FileReader
+public class DBController
 {
 
     private static Connection connection;
@@ -39,7 +39,7 @@ public class FileReader
     }
 
     static void setNodeList(LinkedList<Node> nodeList) {
-        FileReader.nodeList = nodeList;
+        DBController.nodeList = nodeList;
     }
 
 
@@ -66,7 +66,6 @@ public class FileReader
 
             //String path = "file:///" + System.getProperty("user.dir") + File.separator + "src" +  File.separator + "main" + File.separator + "resources" + File.separator + "PrototypeNodes.csv";
             String path = "file:///" + System.getProperty("user.dir") +  "\\PrototypeNodes.csv";
-
 
             URL filePath = new URL(path);
             File csvFile = new File(filePath.toURI());
@@ -119,7 +118,7 @@ public class FileReader
                     tempShortName = lineArray[7];
 
                     //MainController.addNode(new Node(tempNodeID, Integer.parseInt(tempXCoord), Integer.parseInt(tempYCoord),
-                      //      Integer.parseInt(tempFloor), tempBuilding, tempNodeType, tempLongName, tempShortName));
+                    //      Integer.parseInt(tempFloor), tempBuilding, tempNodeType, tempLongName, tempShortName));
 
                     nodeList.add(new Node(tempNodeID, Integer.parseInt(tempXCoord), Integer.parseInt(tempYCoord),
                             Integer.parseInt(tempFloor), tempBuilding, tempNodeType, tempLongName, tempShortName));

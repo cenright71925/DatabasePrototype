@@ -41,7 +41,7 @@ public class ModifyController implements Initializable {
     public void loadOnClick(ActionEvent event){
 
         hasNode = false;
-        LinkedList<Node> fileReaderNodeList = FileReader.getNodeList();
+        LinkedList<Node> fileReaderNodeList = DBController.getNodeList();
         for(Node n: fileReaderNodeList){
             if(n.getNodeID().equals(enterNodeIDTF.getText())){
                 hasNode = true;
@@ -99,9 +99,9 @@ public class ModifyController implements Initializable {
         getTextFieldEntries();
 
         Node newNode = new Node(nodeID, xCoord, yCoord, floor, building, nodeType, longName, shortName);
-        LinkedList<Node> fileReaderNodeList = FileReader.getNodeList();
+        LinkedList<Node> fileReaderNodeList = DBController.getNodeList();
         fileReaderNodeList.addFirst(newNode);
-        FileReader.setNodeList(fileReaderNodeList);
+        DBController.setNodeList(fileReaderNodeList);
 
         try{
             newNode.addNode();
@@ -122,7 +122,7 @@ public class ModifyController implements Initializable {
     public void deleteOnClick(ActionEvent event) throws  IOException{
 
         element = 0;
-        LinkedList<Node> fileReaderNodeList = FileReader.getNodeList();
+        LinkedList<Node> fileReaderNodeList = DBController.getNodeList();
         for(Node n: fileReaderNodeList){
             if(n.getNodeID().equals(nodeID)) {
                 delNode = n;
@@ -132,7 +132,7 @@ public class ModifyController implements Initializable {
             element++;
         }
 
-        FileReader.setNodeList(fileReaderNodeList);
+        DBController.setNodeList(fileReaderNodeList);
 
         try{
             delNode.deleteNode();
@@ -157,7 +157,7 @@ public class ModifyController implements Initializable {
         Node newNode = new Node(nodeID, xCoord, yCoord, floor, building, nodeType, longName, shortName);
 
         element = 0;
-        LinkedList<Node> fileReaderNodeList = FileReader.getNodeList();
+        LinkedList<Node> fileReaderNodeList = DBController.getNodeList();
         for(Node n: fileReaderNodeList){
             if(n.getNodeID().equals(nodeID)) {
                 delNode = n;
@@ -167,7 +167,7 @@ public class ModifyController implements Initializable {
             element++;
         }
         fileReaderNodeList.add(element, newNode);
-        FileReader.setNodeList(fileReaderNodeList);
+        DBController.setNodeList(fileReaderNodeList);
 
         //bellow closes the pop up window, everything above this in this method should handle the inputs from the TFs
         Stage stage;
