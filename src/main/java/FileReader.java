@@ -7,9 +7,7 @@ import java.util.LinkedList;
 //import main.java.Node;
 //import main.java.Node;
 
-import javax.xml.transform.Result;
 import java.io.File;
-import java.nio.file.Files;
 
 public class FileReader
 {
@@ -66,7 +64,10 @@ public class FileReader
 
         try{
 
-            String path = "file:///" + System.getProperty("user.dir") + File.separator + "src" +  File.separator + "main" + File.separator + "resources" + File.separator + "PrototypeNodes.csv";
+            //String path = "file:///" + System.getProperty("user.dir") + File.separator + "src" +  File.separator + "main" + File.separator + "resources" + File.separator + "PrototypeNodes.csv";
+            String path = "file:///" + System.getProperty("user.dir") +  "\\PrototypeNodes.csv";
+
+
             URL filePath = new URL(path);
             File csvFile = new File(filePath.toURI());
             br = new BufferedReader(new java.io.FileReader(csvFile));
