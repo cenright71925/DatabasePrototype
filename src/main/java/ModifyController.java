@@ -25,7 +25,8 @@ public class ModifyController implements Initializable {
     boolean hasNode = false;
     String nodeID, building, nodeType, longName, shortName;
     int xCoord, yCoord, floor;
-    Node curNode;
+    Node curNode, delNode;
+    int element;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -124,15 +125,16 @@ public class ModifyController implements Initializable {
         fileReaderNodeList.add(newNode);
         FileReader.setNodeList(fileReaderNodeList);
 
-        try{
-            newNode.addNode(FileReader.getConnection());
-        }
-        catch (SQLException e){
-            e.printStackTrace();
-        }
+//        try{
+//            newNode.addNode(FileReader.getConnection());
+//        }
+//        catch (SQLException e){
+//            e.printStackTrace();
+//        }
 
 
         //bellow closes the pop up window, everything above this in this method should handle the inputs from the TFs
+
         Stage stage;
         stage = (Stage) btnAdd.getScene().getWindow();
         stage.close();
@@ -140,6 +142,24 @@ public class ModifyController implements Initializable {
 
     @FXML
     public void deleteOnClick(ActionEvent event) throws  IOException{
+        element = 0;
+        LinkedList<Node> fileReaderNodeList = FileReader.getNodeList();
+        for(Node n: fileReaderNodeList){
+            if(n.getNodeID().equals(nodeID)) {
+                delNode = n;
+                fileReaderNodeList.remove(element);
+                break;
+            }
+            element++;
+        }
+        FileReader.setNodeList(fileReaderNodeList);
+
+//        try{
+//            delNode.deleteNode(FileReader.getConnection());
+//        }
+//        catch (SQLException e){
+//            e.printStackTrace();
+//        }
 
         //bellow closes the pop up window, everything above this in this method should handle the inputs from the TFs
         Stage stage;
@@ -147,16 +167,7 @@ public class ModifyController implements Initializable {
         stage.close();
 
         String id = enterNodeIDTF.getText();
-
-
-
-
-
         //String delNode = "DELETE * FROM Node WHERE nodeID = " + id + "";
-
-
-
-
     }
 
     @FXML

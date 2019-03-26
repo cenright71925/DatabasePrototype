@@ -92,7 +92,7 @@
                   </JFXButton>
                   <HBox alignment="CENTER" prefHeight="70.0" prefWidth="200.0">
                      <children>
-                        <JFXButton fx:id="btnAdd" buttonType="RAISED" onAction="#addOnClick" style="-fx-background-color: white;" stylesheets="@Styles.css" text="Add Node">
+                        <JFXButton fx:id="btnAdd" buttonType="RAISED" onAction="#addOnClick" style="-fx-background-color: white;" text="Add Node">
                            <HBox.margin>
                               <Insets right="10.0" />
                            </HBox.margin>

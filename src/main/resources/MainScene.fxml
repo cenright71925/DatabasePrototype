@@ -21,7 +21,7 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <JFXButton fx:id="btnDownload" buttonType="RAISED" onAction="#downloadOnClick" style="-fx-background-color: white;" text="Download CSV File">
+                  <JFXButton fx:id="btnDownload" buttonType="RAISED" onAction="#downloadOnClick" stylesheets="@Styles.css" text="Download CSV File">
                      <font>
                         <Font size="19.0" />
                      </font>
@@ -29,12 +29,20 @@
                         <Insets right="50.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="btnRead" buttonType="RAISED" onAction="#readOnClick" style="-fx-background-color: white;" text="Read CSV File">
+                  <JFXButton fx:id="btnRead" buttonType="RAISED" onAction="#readOnClick" pickOnBounds="false" stylesheets="@Styles.css" text="Read CSV File">
                      <font>
                         <Font size="19.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton fx:id="btnModify" buttonType="RAISED" onAction="#modifyOnClick" style="-fx-background-color: white;" text="Modify Nodes">
+                  <JFXButton fx:id="btnModify" buttonType="RAISED" onAction="#modifyOnClick" stylesheets="@Styles.css" text="Modify Nodes">
+                     <font>
+                        <Font size="19.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="50.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="btnUpdate" buttonType="RAISED" onAction="#updateOnClick" stylesheets="@Styles.css" text="Update Table">
                      <font>
                         <Font size="19.0" />
                      </font>

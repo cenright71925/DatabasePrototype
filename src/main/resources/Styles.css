@@ -1,3 +1,10 @@
 .textField{
     -fx-background-color: lightgray;
 }
+
+.button{
+    -fx-background-color: #6a14e4;
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}

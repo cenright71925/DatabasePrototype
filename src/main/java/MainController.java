@@ -22,7 +22,7 @@ import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-    @FXML Button btnDownload, btnRead, btnModify;
+    @FXML Button btnDownload, btnRead, btnModify, btnUpdate;
     @FXML TableView<Node> tableView;
     @FXML TableColumn<Node, String> nodeIDCol;
     @FXML TableColumn<Node, Integer> xCoordCol;
@@ -32,17 +32,10 @@ public class MainController implements Initializable {
     @FXML TableColumn<Node, String> nodeTypeCol;
     @FXML TableColumn<Node, String> longNameCol;
     @FXML TableColumn<Node, String> shortNameCol;
-
     private static ObservableList<Node> tableNodeList = FXCollections.observableArrayList();
 
 
-
-//    public static void addNode(Node n)
-//    {
-//        nodes.add(n);
-//    }
-
-    @Override //this code runs as soon as the program boots up. start() in the Main class also does that. but here is for UI things
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         //btnModify.setDisable(true); //code to disable the Modify Node button until a node is selected from the table
 
@@ -55,28 +48,12 @@ public class MainController implements Initializable {
         longNameCol.setCellValueFactory(new PropertyValueFactory<>("longName"));
         shortNameCol.setCellValueFactory(new PropertyValueFactory<>("shortName"));
         //tableView.setItems(getNodes());
-    }
+        FileReader.readFile();
+        btnModify.setDisable(true);
+        btnDownload.setDisable(true);
+        btnUpdate.setDisable(true);
 
-//    public ObservableList<Node> getNodes(){
-//
-//        //ObservableList<Node> nodes = FXCollections.observableArrayList();
-//        //nodes.add(new Node("BCONF00112", 675, 1231, 2, "45 Francis", "CONF", "Duncan Reef Conference Room", "B0102"));
-//        //nodes.add(new Node("BCONF12321", 456, 1211, 3, "35 Camiles", "CONF", "Big Ass Room", "BAR"));
-//
-//        LinkedList<Node> testList = FileReader.getNodeList();
-//        //System.out.println(FileReader.nodeList);
-//
-//        for(Node n: testList)
-//        {
-//            System.out.println("MC");
-//            System.out.println(n.getNodeID());
-//
-//        }
-//
-//        System.out.println("List length is " + testList.size());
-//
-//        return nodes;
-//    }
+    }
 
     @FXML
     public void downloadOnClick(ActionEvent event){
@@ -86,7 +63,7 @@ public class MainController implements Initializable {
     @FXML
     public void readOnClick(ActionEvent event){
         //here put code to start the reading of the CSV file and populating the table full of data
-        FileReader.readFile();
+
         tableNodeList.removeAll();
         LinkedList<Node> fileReaderNodeList = FileReader.getNodeList();
         //System.out.println(FileReader.nodeList);
@@ -96,22 +73,32 @@ public class MainController implements Initializable {
         }
         System.out.println("List length is " + fileReaderNodeList.size());
         tableView.setItems(tableNodeList);
+        btnDownload.setDisable(false);
+        btnModify.setDisable(false);
+        btnUpdate.setDisable(false);
     }
-
-
 
     @FXML
     public void modifyOnClick(ActionEvent event) throws IOException {
-        //code to handle what node is about to be modified (maybe...idk)
-
-
-        //code below is to create the pop up window
         Stage stage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("ModifyScene.fxml"));
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
 
+    }
+
+    @FXML
+    public void updateOnClick(){
+        tableNodeList.clear();
+        LinkedList<Node> fileReaderNodeList = FileReader.getNodeList();
+        for(Node n: fileReaderNodeList)
+        {
+            tableNodeList.add(n);
+        }
+        System.out.println("List length is " + fileReaderNodeList.size());
+        System.out.println("Table length is " + tableNodeList.size());
+        tableView.setItems(tableNodeList);
     }
 
 
