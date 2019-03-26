@@ -30,14 +30,8 @@ public class ModifyController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        nodeIDTF.setDisable(true);
-        xCoordTF.setDisable(true);
-        yCoordTF.setDisable(true);
-        floorTF.setDisable(true);
-        buildingTF.setDisable(true);
-        nodeTypeTF.setDisable(true);
-        longNameTF.setDisable(true);
-        shortNameTF.setDisable(true);
+        setDisableTF(true);
+
         btnEdit.setDisable(true);
         btnDelete.setDisable(true);
         btnAdd.setDisable(true);
@@ -56,13 +50,8 @@ public class ModifyController implements Initializable {
         }
 
         if(hasNode){
-            xCoordTF.setDisable(false);
-            yCoordTF.setDisable(false);
-            floorTF.setDisable(false);
-            buildingTF.setDisable(false);
-            nodeTypeTF.setDisable(false);
-            longNameTF.setDisable(false);
-            shortNameTF.setDisable(false);
+            setDisableTF(false);
+            nodeIDTF.setDisable(true);
 
             btnAdd.setDisable(false);
             btnDelete.setDisable(false);
@@ -88,13 +77,9 @@ public class ModifyController implements Initializable {
 
         } else {
             errorLabel.setText("Node Not Found. Create new node?");
-            xCoordTF.setDisable(false);
-            yCoordTF.setDisable(false);
-            floorTF.setDisable(false);
-            buildingTF.setDisable(false);
-            nodeTypeTF.setDisable(false);
-            longNameTF.setDisable(false);
-            shortNameTF.setDisable(false);
+            setDisableTF(false);
+            nodeIDTF.setDisable(true);
+
             btnAdd.setDisable(false);
             btnDelete.setDisable(true);
             btnEdit.setDisable(true);
@@ -111,18 +96,11 @@ public class ModifyController implements Initializable {
 
     @FXML
     public void addOnClick(ActionEvent event) throws  IOException{
-        nodeID = nodeIDTF.getText();
-        xCoord = Integer.parseInt(xCoordTF.getText());
-        yCoord = Integer.parseInt(yCoordTF.getText());
-        floor = Integer.parseInt((floorTF.getText()));
-        building = buildingTF.getText();
-        nodeType = nodeTypeTF.getText();
-        longName = longNameTF.getText();
-        shortName = shortNameTF.getText();
+        getTextFieldEntries();
 
         Node newNode = new Node(nodeID, xCoord, yCoord, floor, building, nodeType, longName, shortName);
         LinkedList<Node> fileReaderNodeList = FileReader.getNodeList();
-        fileReaderNodeList.add(newNode);
+        fileReaderNodeList.addFirst(newNode);
         FileReader.setNodeList(fileReaderNodeList);
 
         try{
@@ -142,6 +120,7 @@ public class ModifyController implements Initializable {
 
     @FXML
     public void deleteOnClick(ActionEvent event) throws  IOException{
+
         element = 0;
         LinkedList<Node> fileReaderNodeList = FileReader.getNodeList();
         for(Node n: fileReaderNodeList){
@@ -152,6 +131,7 @@ public class ModifyController implements Initializable {
             }
             element++;
         }
+
         FileReader.setNodeList(fileReaderNodeList);
 
         try{
@@ -172,12 +152,48 @@ public class ModifyController implements Initializable {
 
     @FXML
     public void editOnClick(ActionEvent event) throws IOException{
-        //.getText will read the TextField into a String that can then be put somewhere (like the database...)
-        System.out.println(nodeIDTF.getText());
+        getTextFieldEntries();
+
+        Node newNode = new Node(nodeID, xCoord, yCoord, floor, building, nodeType, longName, shortName);
+
+        element = 0;
+        LinkedList<Node> fileReaderNodeList = FileReader.getNodeList();
+        for(Node n: fileReaderNodeList){
+            if(n.getNodeID().equals(nodeID)) {
+                delNode = n;
+                fileReaderNodeList.remove(element);
+                break;
+            }
+            element++;
+        }
+        fileReaderNodeList.add(element, newNode);
+        FileReader.setNodeList(fileReaderNodeList);
 
         //bellow closes the pop up window, everything above this in this method should handle the inputs from the TFs
         Stage stage;
         stage = (Stage) btnEdit.getScene().getWindow();
         stage.close();
+    }
+
+    public void getTextFieldEntries(){
+        nodeID = nodeIDTF.getText();
+        xCoord = Integer.parseInt(xCoordTF.getText());
+        yCoord = Integer.parseInt(yCoordTF.getText());
+        floor = Integer.parseInt((floorTF.getText()));
+        building = buildingTF.getText();
+        nodeType = nodeTypeTF.getText();
+        longName = longNameTF.getText();
+        shortName = shortNameTF.getText();
+    }
+
+    public void setDisableTF(boolean value){
+        nodeIDTF.setDisable(value);
+        xCoordTF.setDisable(value);
+        yCoordTF.setDisable(value);
+        floorTF.setDisable(value);
+        buildingTF.setDisable(value);
+        nodeTypeTF.setDisable(value);
+        longNameTF.setDisable(value);
+        shortNameTF.setDisable(value);
     }
 }
