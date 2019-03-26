@@ -12,10 +12,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.java.Node;
+//import main.java.Node;//i had to comment this out fot it to run
 
+
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -30,6 +33,14 @@ public class MainController implements Initializable {
     @FXML TableColumn<Node, String> longNameCol;
     @FXML TableColumn<Node, String> shortNameCol;
 
+    private static ObservableList<Node> nodes = FXCollections.observableArrayList();
+
+
+
+    public static void addNode(Node n)
+    {
+        nodes.add(n);
+    }
 
     @Override //this code runs as soon as the program boots up. start() in the Main class also does that. but here is for UI things
     public void initialize(URL location, ResourceBundle resources) {
@@ -47,9 +58,11 @@ public class MainController implements Initializable {
     }
 
     public ObservableList<Node> getNodes(){
-        ObservableList<Node> nodes = FXCollections.observableArrayList();
-        nodes.add(new Node("BCONF00112", 675, 1231, 2, "45 Francis", "CONF", "Duncan Reef Conference Room", "B0102"));
-        nodes.add(new Node("BCONF12321", 456, 1211, 3, "35 Camiles", "CONF", "Big Ass Room", "BAR"));
+
+        //ObservableList<Node> nodes = FXCollections.observableArrayList();
+        //nodes.add(new Node("BCONF00112", 675, 1231, 2, "45 Francis", "CONF", "Duncan Reef Conference Room", "B0102"));
+        //nodes.add(new Node("BCONF12321", 456, 1211, 3, "35 Camiles", "CONF", "Big Ass Room", "BAR"));
+
         return nodes;
     }
 
@@ -61,7 +74,7 @@ public class MainController implements Initializable {
     @FXML
     public void readOnClick(ActionEvent event){
         //here put code to start the reading of the CSV file and populating the table full of data
-
+        FileReader.readFile();
     }
 
 

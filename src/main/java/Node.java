@@ -48,6 +48,7 @@ public class Node
         this.shortName = shortName;
     }
 
+    //all these getters are needed for the table
     public String getNodeID() {
         return nodeID;
     }
