@@ -16,7 +16,7 @@ public class FileReader
 
 
 
-    private static LinkedList<Node> nodeList = new LinkedList<Node>();
+    private static LinkedList<Node> nodeList = new LinkedList<>();
 
     private static void connection()
     {
@@ -24,7 +24,7 @@ public class FileReader
             // substitute your database name for myDB
             connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
             // autoCommit should be false so an admin can agree to committing before done
-            connection.setAutoCommit(false);
+            //connection.setAutoCommit(false);
 
         } catch (SQLException e) {
             System.out.println("Connection failed. Check output console.");
@@ -33,12 +33,12 @@ public class FileReader
 
     }
 
-    public static LinkedList<Node> getNodeList()
+    static LinkedList<Node> getNodeList()
     {
         return nodeList;
     }
 
-    public static void setNodeList(LinkedList<Node> nodeList) {
+    static void setNodeList(LinkedList<Node> nodeList) {
         FileReader.nodeList = nodeList;
     }
 
@@ -66,6 +66,26 @@ public class FileReader
 
             br = new BufferedReader(new java.io.FileReader("src\\main\\resources\\PrototypeNodes.csv"));
 
+            try{
+                String createTable = "CREATE TABLE Node (nodeID Varchar(10) Primary Key, xCoord INTEGER, yCoord INTEGER, floor INTEGER, building Varchar(20), nodeType Varchar(4), longName Varchar(200), shortName Varchar(50))";
+                PreparedStatement pstmt1 = connection.prepareStatement(createTable);
+                pstmt1.executeUpdate();
+            }
+            catch(SQLException e){
+                try {
+                    String dropTable = "DROP TABLE Node";
+                    PreparedStatement pstmt0 = connection.prepareStatement(dropTable);
+                    pstmt0.executeUpdate();
+
+                    String createTable = "CREATE TABLE Node (nodeID Varchar(10) Primary Key, xCoord INTEGER, yCoord INTEGER, floor INTEGER, building Varchar(20), nodeType Varchar(4), longName Varchar(200), shortName Varchar(50))";
+                    PreparedStatement pstmt1 = connection.prepareStatement(createTable);
+                    pstmt1.executeUpdate();
+                }
+                catch (SQLException e1){
+                    e.printStackTrace();
+                }
+            }
+
             while((line = br.readLine()) != null)
             {
                 try {
@@ -86,18 +106,10 @@ public class FileReader
                     nodeList.add(new Node(tempNodeID, Integer.parseInt(tempXCoord), Integer.parseInt(tempYCoord),
                             Integer.parseInt(tempFloor), tempBuilding, tempNodeType, tempLongName, tempShortName));
 
-
-                    String dropTable = "DROP TABLE Node";
-                    PreparedStatement pstmt0 = connection.prepareStatement(dropTable);
-                    pstmt0.executeUpdate();
-
-                    String createTable = "CREATE TABLE Node (nodeID Varchar(10) Primary Key, xCoord INTEGER, yCoord INTEGER, floor INTEGER, building Varchar(20), nodeType Varchar(4), longName Varchar(200), shortName Varchar(50))";
-                    PreparedStatement pstmt1 = connection.prepareStatement(createTable);
-                    pstmt1.executeUpdate();
-
                     String insertLine = "Insert into Node values (?, ?, ?, ?, ?, ?, ?, ?)";
 
                     PreparedStatement pstmt2 = connection.prepareStatement(insertLine);
+
 
                     pstmt2.setString(1, tempNodeID);
                     pstmt2.setString(2, tempXCoord);
@@ -110,17 +122,24 @@ public class FileReader
 
                     pstmt2.executeUpdate();
 
+
                 }
                 catch(java.lang.NumberFormatException | SQLException e){
                     System.out.println("Incorrect Node format, ignored");
                 }
             }
 
+            try{
+                connection.close();
+            }
+            catch (SQLException e){
+                System.out.println("connection not closed successfully");
+            }
+
 
         }  catch (IOException e) {
             e.printStackTrace();
         }
-
 
     }
 
