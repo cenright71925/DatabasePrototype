@@ -19,7 +19,7 @@ public class Main extends Application {
     public static void main(String[] args) {
 
         //FileReader.connection();
-        FileReader.readFile();
+
         launch(args);
 
     }
