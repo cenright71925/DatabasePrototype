@@ -33,14 +33,14 @@ public class MainController implements Initializable {
     @FXML TableColumn<Node, String> longNameCol;
     @FXML TableColumn<Node, String> shortNameCol;
 
-    private static ObservableList<Node> nodes = FXCollections.observableArrayList();
+    private static ObservableList<Node> tableNodeList = FXCollections.observableArrayList();
 
 
 
-    public static void addNode(Node n)
-    {
-        nodes.add(n);
-    }
+//    public static void addNode(Node n)
+//    {
+//        nodes.add(n);
+//    }
 
     @Override //this code runs as soon as the program boots up. start() in the Main class also does that. but here is for UI things
     public void initialize(URL location, ResourceBundle resources) {
@@ -54,17 +54,29 @@ public class MainController implements Initializable {
         nodeTypeCol.setCellValueFactory(new PropertyValueFactory<>("nodeType"));
         longNameCol.setCellValueFactory(new PropertyValueFactory<>("longName"));
         shortNameCol.setCellValueFactory(new PropertyValueFactory<>("shortName"));
-        tableView.setItems(getNodes());
+        //tableView.setItems(getNodes());
     }
 
-    public ObservableList<Node> getNodes(){
-
-        //ObservableList<Node> nodes = FXCollections.observableArrayList();
-        //nodes.add(new Node("BCONF00112", 675, 1231, 2, "45 Francis", "CONF", "Duncan Reef Conference Room", "B0102"));
-        //nodes.add(new Node("BCONF12321", 456, 1211, 3, "35 Camiles", "CONF", "Big Ass Room", "BAR"));
-
-        return nodes;
-    }
+//    public ObservableList<Node> getNodes(){
+//
+//        //ObservableList<Node> nodes = FXCollections.observableArrayList();
+//        //nodes.add(new Node("BCONF00112", 675, 1231, 2, "45 Francis", "CONF", "Duncan Reef Conference Room", "B0102"));
+//        //nodes.add(new Node("BCONF12321", 456, 1211, 3, "35 Camiles", "CONF", "Big Ass Room", "BAR"));
+//
+//        LinkedList<Node> testList = FileReader.getNodeList();
+//        //System.out.println(FileReader.nodeList);
+//
+//        for(Node n: testList)
+//        {
+//            System.out.println("MC");
+//            System.out.println(n.getNodeID());
+//
+//        }
+//
+//        System.out.println("List length is " + testList.size());
+//
+//        return nodes;
+//    }
 
     @FXML
     public void downloadOnClick(ActionEvent event){
@@ -75,6 +87,15 @@ public class MainController implements Initializable {
     public void readOnClick(ActionEvent event){
         //here put code to start the reading of the CSV file and populating the table full of data
         FileReader.readFile();
+        tableNodeList.removeAll();
+        LinkedList<Node> fileReaderNodeList = FileReader.getNodeList();
+        //System.out.println(FileReader.nodeList);
+        for(Node n: fileReaderNodeList)
+        {
+            tableNodeList.add(n);
+        }
+        System.out.println("List length is " + fileReaderNodeList.size());
+        tableView.setItems(tableNodeList);
     }
 
 

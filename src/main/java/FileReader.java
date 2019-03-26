@@ -13,6 +13,9 @@ public class FileReader
 {
 
     private static Connection connection;
+
+    private static LinkedList<Node> nodeList = new LinkedList<Node>();
+
     private static void connection()
     {
         try {
@@ -28,7 +31,11 @@ public class FileReader
 
     }
 
-    private static LinkedList<Node> nodeList = new LinkedList<>();
+    public static LinkedList<Node> getNodeList()
+    {
+        return nodeList;
+    }
+
 
     static void readFile()
     {
@@ -67,8 +74,12 @@ public class FileReader
                     tempLongName = lineArray[6];
                     tempShortName = lineArray[7];
 
-                    MainController.addNode(new Node(tempNodeID, Integer.parseInt(tempXCoord), Integer.parseInt(tempYCoord),
+                    //MainController.addNode(new Node(tempNodeID, Integer.parseInt(tempXCoord), Integer.parseInt(tempYCoord),
+                      //      Integer.parseInt(tempFloor), tempBuilding, tempNodeType, tempLongName, tempShortName));
+
+                    nodeList.add(new Node(tempNodeID, Integer.parseInt(tempXCoord), Integer.parseInt(tempYCoord),
                             Integer.parseInt(tempFloor), tempBuilding, tempNodeType, tempLongName, tempShortName));
+
 
                     String dropTable = "DROP TABLE Node";
                     PreparedStatement pstmt0 = connection.prepareStatement(dropTable);
@@ -82,20 +93,20 @@ public class FileReader
 
                     PreparedStatement pstmt2 = connection.prepareStatement(insertLine);
 
-                    pstmt1.setString(1, tempNodeID);
-                    pstmt1.setString(2, tempXCoord);
-                    pstmt1.setString(3, tempYCoord);
-                    pstmt1.setString(4, tempFloor);
-                    pstmt1.setString(5, tempBuilding);
-                    pstmt1.setString(6, tempNodeType);
-                    pstmt1.setString(7, tempLongName);
-                    pstmt1.setString(8, tempShortName);
+                    pstmt2.setString(1, tempNodeID);
+                    pstmt2.setString(2, tempXCoord);
+                    pstmt2.setString(3, tempYCoord);
+                    pstmt2.setString(4, tempFloor);
+                    pstmt2.setString(5, tempBuilding);
+                    pstmt2.setString(6, tempNodeType);
+                    pstmt2.setString(7, tempLongName);
+                    pstmt2.setString(8, tempShortName);
 
-                    pstmt1.executeUpdate();
+                    pstmt2.executeUpdate();
 
                 }
                 catch(java.lang.NumberFormatException | SQLException e){
-                    //System.out.println("Incorrect Node format, ignored");
+                    System.out.println("Incorrect Node format, ignored");
                 }
             }
 
@@ -103,6 +114,7 @@ public class FileReader
         }  catch (IOException e) {
             e.printStackTrace();
         }
+
 
     }
 
