@@ -6,8 +6,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import javax.annotation.processing.Filer;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
 
@@ -38,14 +40,12 @@ public class ModifyController implements Initializable {
         btnEdit.setDisable(true);
         btnDelete.setDisable(true);
         btnAdd.setDisable(true);
-
-
-
     }
 
     @FXML
     public void loadOnClick(ActionEvent event){
 
+        hasNode = false;
         LinkedList<Node> fileReaderNodeList = FileReader.getNodeList();
         for(Node n: fileReaderNodeList){
             if(n.getNodeID().equals(enterNodeIDTF.getText())){
@@ -86,12 +86,51 @@ public class ModifyController implements Initializable {
             shortNameTF.setText(shortName);
 
         } else {
-            errorLabel.setText("Node Not Found");
+            errorLabel.setText("Node Not Found. Create new node?");
+            xCoordTF.setDisable(false);
+            yCoordTF.setDisable(false);
+            floorTF.setDisable(false);
+            buildingTF.setDisable(false);
+            nodeTypeTF.setDisable(false);
+            longNameTF.setDisable(false);
+            shortNameTF.setDisable(false);
+            btnAdd.setDisable(false);
+            btnDelete.setDisable(true);
+            btnEdit.setDisable(true);
+            nodeIDTF.setText(enterNodeIDTF.getText());
+            xCoordTF.setText("");
+            yCoordTF.setText("");
+            floorTF.setText("");
+            buildingTF.setText("");
+            nodeTypeTF.setText("");
+            longNameTF.setText("");
+            shortNameTF.setText("");
         }
     }
 
     @FXML
     public void addOnClick(ActionEvent event) throws  IOException{
+        nodeID = nodeIDTF.getText();
+        xCoord = Integer.parseInt(xCoordTF.getText());
+        yCoord = Integer.parseInt(yCoordTF.getText());
+        floor = Integer.parseInt((floorTF.getText()));
+        building = buildingTF.getText();
+        nodeType = nodeTypeTF.getText();
+        longName = longNameTF.getText();
+        shortName = shortNameTF.getText();
+
+        Node newNode = new Node(nodeID, xCoord, yCoord, floor, building, nodeType, longName, shortName);
+        LinkedList<Node> fileReaderNodeList = FileReader.getNodeList();
+        fileReaderNodeList.add(newNode);
+        FileReader.setNodeList(fileReaderNodeList);
+
+        try{
+            newNode.addNode(FileReader.getConnection());
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+
 
         //bellow closes the pop up window, everything above this in this method should handle the inputs from the TFs
         Stage stage;

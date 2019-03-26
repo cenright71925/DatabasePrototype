@@ -14,6 +14,8 @@ public class FileReader
 
     private static Connection connection;
 
+
+
     private static LinkedList<Node> nodeList = new LinkedList<Node>();
 
     private static void connection()
@@ -34,6 +36,10 @@ public class FileReader
     public static LinkedList<Node> getNodeList()
     {
         return nodeList;
+    }
+
+    public static void setNodeList(LinkedList<Node> nodeList) {
+        FileReader.nodeList = nodeList;
     }
 
 
