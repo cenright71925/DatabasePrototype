@@ -47,7 +47,7 @@ public class Node
     }
 
     //all these getters are needed for the table
-    public String getNodeID() {
+    String getNodeID() {
         return nodeID;
     }
 
@@ -162,7 +162,7 @@ public class Node
     }
 
     // should only be called to submit an edit, will change the object as necessary
-    public void editNode(String nodeID, int xCoord, int yCoord, int floor, String building,
+    public void editNode(int xCoord, int yCoord, int floor, String building,
                          String nodeType, String longName, String shortName) throws java.sql.SQLException{
         connection();
         try{
@@ -176,15 +176,22 @@ public class Node
             this.nodeType = nodeType;
             this.longName = longName;
             this.shortName = shortName;
-            Statement nodeEdit = connection.createStatement();
-            String editStatement = String.format("UPDATE Node" +
-                    "SET xCoord='%d', yCoord='%d', floor='%d', building='%s', nodeType='%s', longName='%s', shortName='%s'" +
-                    "WHERE nodeID='%s'", xCoord, yCoord, floor, building, nodeType, longName, shortName, nodeID);
-            nodeEdit.executeUpdate(editStatement);
+ 
+            PreparedStatement editStatement = connection.prepareStatement("UPDATE Node SET XCOORD=?,YCOORD=?,FLOOR=?,BUILDING=?,NODETYPE=?,LONGNAME=?,SHORTNAME=? WHERE NODEID=?");
+
+            editStatement.setString(1, String.valueOf(xCoord));
+            editStatement.setString(2, String.valueOf(yCoord));
+            editStatement.setString(3, String.valueOf(floor));
+            editStatement.setString(4, building);
+            editStatement.setString(5, nodeType);
+            editStatement.setString(6, longName);
+            editStatement.setString(7, shortName);
+            editStatement.setString(8, nodeID);
+           // System.out.println(editStatement);
+            editStatement.executeUpdate();
 
         }
         catch(java.sql.SQLException e){
-            System.out.println("error");
             throw new java.sql.SQLException("Node does not exist");
         }
         connection.close();
