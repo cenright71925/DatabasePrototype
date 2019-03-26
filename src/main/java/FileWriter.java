@@ -33,34 +33,34 @@ public class FileWriter {
 
    // }
 
-    public static void updateCSVFile()
-    {
-        //String csvPath = DBController.getPath();
-        String csvPath = "file:///" + System.getProperty("user.dir") +  "\\TempCSV.csv";
-
-        try (
-                Writer writer = Files.newBufferedWriter(Paths.get(csvPath));
-        ) {
-            StatefulBeanToCsv<Node> beanToCsv = new StatefulBeanToCsvBuilder(writer)
-                    .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
-                    .build();
-
-            //List<MyUser> myUsers = new ArrayList<>();
-
-           // LinkedList<Node> nodeList = DBController.getNodeList();
-
-            List<Node> nodeList = new ArrayList<>();
-
-            nodeList.add(new Node("hall1", 34, 45, 4, "fuller", "hallway", "fullHall", "fullerHallway"));
-            //nodeList.add(new Node("Satya Nadella", "satya.nadella@outlook.com", "+1-1111111112", "India"));
-
-            beanToCsv.write(nodeList);
-        } catch (IOException | CsvDataTypeMismatchException |
-        CsvRequiredFieldEmptyException e)
-        {
-            e.printStackTrace();
-        }
-    }
+//    public static void updateCSVFile()
+//    {
+//        //String csvPath = DBController.getPath();
+//        String csvPath = "file:///" + System.getProperty("user.dir") +  "\\TempCSV.csv";
+//
+//        try (
+//                Writer writer = Files.newBufferedWriter(Paths.get(csvPath));
+//        ) {
+//            StatefulBeanToCsv<Node> beanToCsv = new StatefulBeanToCsvBuilder(writer)
+//                    .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
+//                    .build();
+//
+//            //List<MyUser> myUsers = new ArrayList<>();
+//
+//           // LinkedList<Node> nodeList = DBController.getNodeList();
+//
+//            List<Node> nodeList = new ArrayList<>();
+//
+//            nodeList.add(new Node("hall1", 34, 45, 4, "fuller", "hallway", "fullHall", "fullerHallway"));
+//            //nodeList.add(new Node("Satya Nadella", "satya.nadella@outlook.com", "+1-1111111112", "India"));
+//
+//            beanToCsv.write(nodeList);
+//        } catch (IOException | CsvDataTypeMismatchException |
+//        CsvRequiredFieldEmptyException e)
+//        {
+//            e.printStackTrace();
+//        }
+//    }
 
 
 }

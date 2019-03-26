@@ -170,8 +170,6 @@ public class DBController
 
     public static void addNode(Node n) throws java.sql.SQLException{
 
-
-
         try{
             PreparedStatement nodeStatement = connection.prepareStatement("Insert into Node values (?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -194,7 +192,61 @@ public class DBController
             //throw new java.sql.SQLException(exceptionString);
             e.printStackTrace();
         }
-        connection.close();
     }
+
+
+    public static void deleteNode(Node n) throws java.sql.SQLException{
+
+        try{
+            Statement nodeDelete = connection.createStatement();
+            String deleteStatement = String.format("DELETE FROM Node WHERE nodeID='%s'", n.getNodeID());
+            System.out.println(deleteStatement);
+            nodeDelete.executeUpdate(deleteStatement);
+
+        }
+        catch(java.sql.SQLException e){
+            String exceptionString = String.format("NodeID:%s does not exist in table", n.getNodeID());
+            System.out.println(exceptionString);
+            throw new java.sql.SQLException(exceptionString);
+        }
+
+    }
+
+    public static void editNode(Node oldNode, Node newNode) throws java.sql.SQLException{
+        try{
+            // nodeID should not be changed
+            // sets all parts of the object to account for changes
+
+            deleteNode(oldNode);
+            addNode(newNode);
+
+
+//            n.set = xCoord;
+//            this.yCoord = yCoord;
+//            this.floor = floor;
+//            this.building = building;
+//            this.nodeType = nodeType;
+//            this.longName = longName;
+//            this.shortName = shortName;
+//
+//            PreparedStatement editStatement = connection.prepareStatement("UPDATE Node SET XCOORD=?,YCOORD=?,FLOOR=?,BUILDING=?,NODETYPE=?,LONGNAME=?,SHORTNAME=? WHERE NODEID=?");
+//
+//            editStatement.setString(1, String.valueOf(xCoord));
+//            editStatement.setString(2, String.valueOf(yCoord));
+//            editStatement.setString(3, String.valueOf(floor));
+//            editStatement.setString(4, building);
+//            editStatement.setString(5, nodeType);
+//            editStatement.setString(6, longName);
+//            editStatement.setString(7, shortName);
+//            editStatement.setString(8, nodeID);
+//            // System.out.println(editStatement);
+//            editStatement.executeUpdate();
+
+        }
+        catch(java.sql.SQLException e){
+            throw new java.sql.SQLException("Node does not exist");
+        }
+    }
+
 
 }

@@ -47,7 +47,7 @@ public class Node
     }
 
     //all these getters are needed for the table
-    String getNodeID() {
+    public String getNodeID() {
         return nodeID;
     }
 
@@ -142,58 +142,58 @@ public class Node
 //        }
 //        connection.close();
 //    }
-
-    public void deleteNode() throws java.sql.SQLException{
-        connection();
-        try{
-            Statement nodeDelete = connection.createStatement();
-            String deleteStatement = String.format("DELETE FROM Node WHERE nodeID='%s'", nodeID);
-            System.out.println(deleteStatement);
-            nodeDelete.executeUpdate(deleteStatement);
-
-        }
-        catch(java.sql.SQLException e){
-            String exceptionString = String.format("NodeID:%s does not exist in table", nodeID);
-            System.out.println(exceptionString);
-            throw new java.sql.SQLException(exceptionString);
-        }
-
-        connection.close();
-    }
+//
+//    public void deleteNode() throws java.sql.SQLException{
+//        connection();
+//        try{
+//            Statement nodeDelete = connection.createStatement();
+//            String deleteStatement = String.format("DELETE FROM Node WHERE nodeID='%s'", nodeID);
+//            System.out.println(deleteStatement);
+//            nodeDelete.executeUpdate(deleteStatement);
+//
+//        }
+//        catch(java.sql.SQLException e){
+//            String exceptionString = String.format("NodeID:%s does not exist in table", nodeID);
+//            System.out.println(exceptionString);
+//            throw new java.sql.SQLException(exceptionString);
+//        }
+//
+//        connection.close();
+//    }
 
     // should only be called to submit an edit, will change the object as necessary
-    public void editNode(int xCoord, int yCoord, int floor, String building,
-                         String nodeType, String longName, String shortName) throws java.sql.SQLException{
-        connection();
-        try{
-            // nodeID should not be changed
-            // sets all parts of the object to account for changes
-
-            this.xCoord = xCoord;
-            this.yCoord = yCoord;
-            this.floor = floor;
-            this.building = building;
-            this.nodeType = nodeType;
-            this.longName = longName;
-            this.shortName = shortName;
- 
-            PreparedStatement editStatement = connection.prepareStatement("UPDATE Node SET XCOORD=?,YCOORD=?,FLOOR=?,BUILDING=?,NODETYPE=?,LONGNAME=?,SHORTNAME=? WHERE NODEID=?");
-
-            editStatement.setString(1, String.valueOf(xCoord));
-            editStatement.setString(2, String.valueOf(yCoord));
-            editStatement.setString(3, String.valueOf(floor));
-            editStatement.setString(4, building);
-            editStatement.setString(5, nodeType);
-            editStatement.setString(6, longName);
-            editStatement.setString(7, shortName);
-            editStatement.setString(8, nodeID);
-           // System.out.println(editStatement);
-            editStatement.executeUpdate();
-
-        }
-        catch(java.sql.SQLException e){
-            throw new java.sql.SQLException("Node does not exist");
-        }
-        connection.close();
-    }
+//    public void editNode(int xCoord, int yCoord, int floor, String building,
+//                         String nodeType, String longName, String shortName) throws java.sql.SQLException{
+//        connection();
+//        try{
+//            // nodeID should not be changed
+//            // sets all parts of the object to account for changes
+//
+//            this.xCoord = xCoord;
+//            this.yCoord = yCoord;
+//            this.floor = floor;
+//            this.building = building;
+//            this.nodeType = nodeType;
+//            this.longName = longName;
+//            this.shortName = shortName;
+//
+//            PreparedStatement editStatement = connection.prepareStatement("UPDATE Node SET XCOORD=?,YCOORD=?,FLOOR=?,BUILDING=?,NODETYPE=?,LONGNAME=?,SHORTNAME=? WHERE NODEID=?");
+//
+//            editStatement.setString(1, String.valueOf(xCoord));
+//            editStatement.setString(2, String.valueOf(yCoord));
+//            editStatement.setString(3, String.valueOf(floor));
+//            editStatement.setString(4, building);
+//            editStatement.setString(5, nodeType);
+//            editStatement.setString(6, longName);
+//            editStatement.setString(7, shortName);
+//            editStatement.setString(8, nodeID);
+//           // System.out.println(editStatement);
+//            editStatement.executeUpdate();
+//
+//        }
+//        catch(java.sql.SQLException e){
+//            throw new java.sql.SQLException("Node does not exist");
+//        }
+//        connection.close();
+//    }
 }

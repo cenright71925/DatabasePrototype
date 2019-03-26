@@ -135,7 +135,8 @@ public class ModifyController implements Initializable {
         DBController.setNodeList(fileReaderNodeList);
 
         try{
-            delNode.deleteNode();
+            DBController.deleteNode(delNode);
+
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -170,7 +171,8 @@ public class ModifyController implements Initializable {
         DBController.setNodeList(fileReaderNodeList);
 
         try{
-            delNode.editNode(xCoord, yCoord, floor, building, nodeType, longName, shortName);
+            //delNode.editNode(xCoord, yCoord, floor, building, nodeType, longName, shortName);
+            DBController.editNode(delNode, newNode);
         }
         catch (SQLException e){
             e.printStackTrace();
