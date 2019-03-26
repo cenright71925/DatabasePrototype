@@ -125,12 +125,12 @@ public class ModifyController implements Initializable {
         fileReaderNodeList.add(newNode);
         FileReader.setNodeList(fileReaderNodeList);
 
-//        try{
-//            newNode.addNode(FileReader.getConnection());
-//        }
-//        catch (SQLException e){
-//            e.printStackTrace();
-//        }
+        try{
+            newNode.addNode();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
 
 
         //bellow closes the pop up window, everything above this in this method should handle the inputs from the TFs

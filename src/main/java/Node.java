@@ -1,8 +1,6 @@
 //package main.java;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.Statement;
+import java.sql.*;
 
 
 public class Node
@@ -102,9 +100,25 @@ public class Node
 //        }
 //
 //    }
+    private Connection connection;
+    private void connection()
+    {
+        try {
+            // substitute your database name for myDB
+            connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
+            // autoCommit should be false so an admin can agree to committing before done
+            //connection.setAutoCommit(false);
+
+        } catch (SQLException e) {
+            System.out.println("Connection failed. Check output console.");
+            e.printStackTrace();
+        }
+
+    }
 
     // adds a node to the given connection
-    public void addNode(Connection connection) throws java.sql.SQLException{
+    public void addNode() throws java.sql.SQLException{
+        connection();
         try{
             PreparedStatement nodeStatement = connection.prepareStatement("Insert into Node values (?, ?, ?, ?, ?, ?, ?, ?)");
 
@@ -119,29 +133,18 @@ public class Node
             nodeStatement.setString(8, shortName);
 
             nodeStatement.execute();
-            // auto commit is turned off
-            connection.commit();
         }
         // table does not exist or some other error happened
         catch (java.sql.SQLException e) {
-//            // calls check table to make sure it exists
-//            try{
-//                checkTable(connection);
-//                // calls the function again now that the table exists
-//                addNode(connection);
-//            }
-//            // table already exists, nodeID is already in that table
-//            catch(java.sql.SQLException ie){
-//                // ie passed from checkTable()
-//                System.out.println(ie.getMessage());
             String exceptionString = String.format("NodeID nodeID:%s already exists", nodeID);
             System.out.println(exceptionString);
             throw new java.sql.SQLException(exceptionString);
-            //}
         }
+        connection.close();
     }
 
-    public void deleteNode(Connection connection) throws java.sql.SQLException{
+    public void deleteNode() throws java.sql.SQLException{
+        connection();
         try{
             Statement nodeDelete = connection.createStatement();
             // the string format seems unnecessary
@@ -149,16 +152,12 @@ public class Node
             nodeDelete.execute(deleteStatement);
         }
         catch(java.sql.SQLException e){
-//            try{
-//                checkTable(connection);
-//            }
-//            // table exists, but the node doesn't exist
-//            catch(java.sql.SQLException ie){
             String exceptionString = String.format("NodeID nodeID:%s does not exist in table", nodeID);
             System.out.println(exceptionString);
             throw new java.sql.SQLException(exceptionString);
-            //}
         }
+
+        connection.close();
     }
 
     // should only be called to submit an edit, will change the object as necessary
