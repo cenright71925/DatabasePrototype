@@ -117,31 +117,31 @@ public class Node
     }
 
     // adds a node to the given connection
-    public void addNode() throws java.sql.SQLException{
-        connection();
-        try{
-            PreparedStatement nodeStatement = connection.prepareStatement("Insert into Node values (?, ?, ?, ?, ?, ?, ?, ?)");
-
-            // can you mix prepared statement types? setString vs setNString?
-            nodeStatement.setString(1, nodeID);
-            nodeStatement.setString(2, String.valueOf(xCoord));
-            nodeStatement.setString(3, String.valueOf(yCoord));
-            nodeStatement.setString(4, String.valueOf(floor));
-            nodeStatement.setString(5, building);
-            nodeStatement.setString(6, nodeType);
-            nodeStatement.setString(7, longName);
-            nodeStatement.setString(8, shortName);
-
-            nodeStatement.execute();
-        }
-        // table does not exist or some other error happened
-        catch (java.sql.SQLException e) {
-            String exceptionString = String.format("NodeID nodeID:%s already exists", nodeID);
-            System.out.println(exceptionString);
-            throw new java.sql.SQLException(exceptionString);
-        }
-        connection.close();
-    }
+//    public void addNode() throws java.sql.SQLException{
+//        connection();
+//        try{
+//            PreparedStatement nodeStatement = connection.prepareStatement("Insert into Node values (?, ?, ?, ?, ?, ?, ?, ?)");
+//
+//            // can you mix prepared statement types? setString vs setNString?
+//            nodeStatement.setString(1, nodeID);
+//            nodeStatement.setString(2, String.valueOf(xCoord));
+//            nodeStatement.setString(3, String.valueOf(yCoord));
+//            nodeStatement.setString(4, String.valueOf(floor));
+//            nodeStatement.setString(5, building);
+//            nodeStatement.setString(6, nodeType);
+//            nodeStatement.setString(7, longName);
+//            nodeStatement.setString(8, shortName);
+//
+//            nodeStatement.execute();
+//        }
+//        // table does not exist or some other error happened
+//        catch (java.sql.SQLException e) {
+//            String exceptionString = String.format("NodeID nodeID:%s already exists", nodeID);
+//            System.out.println(exceptionString);
+//            throw new java.sql.SQLException(exceptionString);
+//        }
+//        connection.close();
+//    }
 
     public void deleteNode() throws java.sql.SQLException{
         connection();

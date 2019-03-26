@@ -11,11 +11,8 @@ import java.io.File;
 
 public class DBController
 {
-
     private static Connection connection;
-
-
-
+    private static String path = "file:///" + System.getProperty("user.dir") +  "\\PrototypeNodes.csv";
     private static LinkedList<Node> nodeList = new LinkedList<>();
 
     private static void connection()
@@ -32,6 +29,12 @@ public class DBController
         }
 
     }
+
+    public static String getPath()
+    {
+        return path;
+    }
+
 
     static LinkedList<Node> getNodeList()
     {
@@ -65,7 +68,7 @@ public class DBController
         try{
 
             //String path = "file:///" + System.getProperty("user.dir") + File.separator + "src" +  File.separator + "main" + File.separator + "resources" + File.separator + "PrototypeNodes.csv";
-            String path = "file:///" + System.getProperty("user.dir") +  "\\PrototypeNodes.csv";
+            //String path = "file:///" + System.getProperty("user.dir") +  "\\PrototypeNodes.csv";
 
             URL filePath = new URL(path);
             File csvFile = new File(filePath.toURI());
@@ -147,12 +150,12 @@ public class DBController
                 }
             }
 
-            try{
-                connection.close();
-            }
-            catch (SQLException e){
-                System.out.println("connection not closed successfully");
-            }
+//            try{
+//                connection.close();
+//            }
+//            catch (SQLException e){
+//                System.out.println("connection not closed successfully");
+//            }
 
 
         }  catch (IOException | URISyntaxException e) {
@@ -163,6 +166,35 @@ public class DBController
 
     public static Connection getConnection() {
         return connection;
+    }
+
+    public static void addNode(Node n) throws java.sql.SQLException{
+
+
+
+        try{
+            PreparedStatement nodeStatement = connection.prepareStatement("Insert into Node values (?, ?, ?, ?, ?, ?, ?, ?)");
+
+            // can you mix prepared statement types? setString vs setNString?
+            nodeStatement.setString(1, n.getNodeID());
+            nodeStatement.setString(2, String.valueOf(n.getXCoord()));
+            nodeStatement.setString(3, String.valueOf(n.getYCoord()));
+            nodeStatement.setString(4, String.valueOf(n.getFloor()));
+            nodeStatement.setString(5, n.getBuilding());
+            nodeStatement.setString(6, n.getNodeType());
+            nodeStatement.setString(7, n.getLongName());
+            nodeStatement.setString(8, n.getShortName());
+
+            nodeStatement.execute();
+        }
+        // table does not exist or some other error happened
+        catch (java.sql.SQLException e) {
+            //String exceptionString = String.format("NodeID nodeID:%s already exists", n.getNodeID());
+            //System.out.println(exceptionString);
+            //throw new java.sql.SQLException(exceptionString);
+            e.printStackTrace();
+        }
+        connection.close();
     }
 
 }

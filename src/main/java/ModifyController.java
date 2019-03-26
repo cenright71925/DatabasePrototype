@@ -104,7 +104,7 @@ public class ModifyController implements Initializable {
         DBController.setNodeList(fileReaderNodeList);
 
         try{
-            newNode.addNode();
+            DBController.addNode(newNode);
         }
         catch (SQLException e){
             e.printStackTrace();
