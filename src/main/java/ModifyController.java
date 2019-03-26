@@ -154,12 +154,12 @@ public class ModifyController implements Initializable {
         }
         FileReader.setNodeList(fileReaderNodeList);
 
-//        try{
-//            delNode.deleteNode(FileReader.getConnection());
-//        }
-//        catch (SQLException e){
-//            e.printStackTrace();
-//        }
+        try{
+            delNode.deleteNode();
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
 
         //bellow closes the pop up window, everything above this in this method should handle the inputs from the TFs
         Stage stage;

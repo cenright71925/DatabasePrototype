@@ -147,12 +147,13 @@ public class Node
         connection();
         try{
             Statement nodeDelete = connection.createStatement();
-            // the string format seems unnecessary
-            String deleteStatement = "DELETE FROM Node WHERE nodeID=" + nodeID;
-            nodeDelete.execute(deleteStatement);
+            String deleteStatement = String.format("DELETE FROM Node WHERE nodeID='%s'", nodeID);
+            System.out.println(deleteStatement);
+            nodeDelete.executeUpdate(deleteStatement);
+
         }
         catch(java.sql.SQLException e){
-            String exceptionString = String.format("NodeID nodeID:%s does not exist in table", nodeID);
+            String exceptionString = String.format("NodeID:%s does not exist in table", nodeID);
             System.out.println(exceptionString);
             throw new java.sql.SQLException(exceptionString);
         }
