@@ -162,8 +162,9 @@ public class Node
     }
 
     // should only be called to submit an edit, will change the object as necessary
-    public void editNode(Connection connection, String nodeID, int xCoord, int yCoord, int floor, String building,
+    public void editNode(String nodeID, int xCoord, int yCoord, int floor, String building,
                          String nodeType, String longName, String shortName) throws java.sql.SQLException{
+        connection();
         try{
             // nodeID should not be changed
             // sets all parts of the object to account for changes
@@ -176,14 +177,16 @@ public class Node
             this.longName = longName;
             this.shortName = shortName;
             Statement nodeEdit = connection.createStatement();
-//            Statement nodeEdit = connection.createStatement("UPDATE Node ");
-//            // work on creating edit statement later
-//            // the string format seems unnecessary
-//            String editStatement = ;
+            String editStatement = String.format("UPDATE Node" +
+                    "SET xCoord='%d', yCoord='%d', floor='%d', building='%s', nodeType='%s', longName='%s', shortName='%s'" +
+                    "WHERE nodeID='%s'", xCoord, yCoord, floor, building, nodeType, longName, shortName, nodeID);
+            nodeEdit.executeUpdate(editStatement);
 
         }
         catch(java.sql.SQLException e){
+            System.out.println("error");
             throw new java.sql.SQLException("Node does not exist");
         }
+        connection.close();
     }
 }
