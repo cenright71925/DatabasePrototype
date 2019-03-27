@@ -1,6 +1,5 @@
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,9 +11,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-//import main.java.Node;//i had to comment this out fot it to run
-
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
@@ -33,6 +29,11 @@ public class MainController implements Initializable {
     @FXML TableColumn<Node, String> shortNameCol;
     private static ObservableList<Node> tableNodeList = FXCollections.observableArrayList();
 
+    /**
+     * public void initialize(URL location, ResourceBundle resources) - initializes the scene for controlling nodes
+     * @param location not used
+     * @param resources not used
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         nodeIDCol.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
@@ -48,6 +49,10 @@ public class MainController implements Initializable {
         btnUpdate.setDisable(true);
     }
 
+    /**
+     * public void downloadOnClick() - controller to download the new csv file to replace the old one
+     * @throws IOException standard input output exception thrown by Javafx controller methods
+     */
     @FXML
     public void downloadOnClick() throws IOException{
         Stage stage = new Stage();
@@ -57,6 +62,10 @@ public class MainController implements Initializable {
         stage.show();
     }
 
+    /**
+     * readOnClick() - reads in the csv file and populates the table with nodes
+     * a few buttons are now enabled so the user can now manipulate the data
+     */
     @FXML
     public void readOnClick(){
         DBController.readFile();
@@ -66,6 +75,10 @@ public class MainController implements Initializable {
         btnUpdate.setDisable(false);
     }
 
+    /**
+     * public void modifyOnClick() - creates a new stage so admin can modify nodes as needed
+     * @throws IOException standard input output exception thrown by Javafx controller methods
+     */
     @FXML
     public void modifyOnClick() throws IOException {
         Stage stage = new Stage();
@@ -75,13 +88,21 @@ public class MainController implements Initializable {
         stage.show();
     }
 
+    /**
+     * public void updateOnClick() - clears the table and repopulates it using the internal list
+     * calls populateTableWithNodes()
+     */
     @FXML
     public void updateOnClick(){
         tableNodeList.clear();
         populateTableWithNodes();
     }
 
-    public void populateTableWithNodes(){
+    /**
+     * private void populateTableWithNodes() - repopulates the table using the internal list
+     * updates the list and table lengths, helper method
+     */
+    private void populateTableWithNodes(){
         LinkedList<Node> fileReaderNodeList = DBController.getNodeList();
         for(Node n: fileReaderNodeList) {tableNodeList.add(n);}
         System.out.println("List length is " + fileReaderNodeList.size());
