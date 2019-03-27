@@ -157,7 +157,7 @@ public class DBController {
      * @param n the nodeID to add, created a new node object
      * @throws java.sql.SQLException problems sending node data to the database
      */
-    public static void addNode(Node n) throws java.sql.SQLException {
+    static void addNode(Node n) throws java.sql.SQLException {
         try {
             // creates a prepared statement to made the node
             PreparedStatement nodeStatement = connection.prepareStatement("Insert into Node values (?, ?, ?, ?, ?, ?, ?, ?)");
@@ -183,7 +183,7 @@ public class DBController {
      * @param n the node to delete
      * @throws SQLException problems sending node data to the database
      */
-    public static void deleteNode(Node n) throws SQLException {
+    static void deleteNode(Node n) throws SQLException {
         try {
             // deletes the nodeID n from the database
             Statement nodeDelete = connection.createStatement();
@@ -204,7 +204,7 @@ public class DBController {
      * @param newNode the new node to replace the old node
      * @throws SQLException problems sending node data to the database
      */
-    public static void editNode(Node oldNode, Node newNode) throws SQLException {
+    static void editNode(Node oldNode, Node newNode) throws SQLException {
         try {
             // nodeID should not be changed
             // sets all parts of the object to account for changes
