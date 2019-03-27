@@ -46,6 +46,7 @@ public class DBController {
 
     /**
      * static void readFile() - reads in the CSV file, populates the table and database
+     * with the node information. Iterates per CSV entry, will skip over any incorrectly formatted entries
      */
     static void readFile() {
         connection();
