@@ -57,6 +57,8 @@ public class MainController implements Initializable {
 
     @FXML
     public void downloadOnClick(ActionEvent event){
+        LinkedList<Node> nodeList = DBController.getNodeList();
+        CSVMaker.makeCSVFile(nodeList);
         //here put code that needs to run to download the new CSV file
     }
 
