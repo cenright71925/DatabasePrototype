@@ -149,31 +149,25 @@ public class DBController
                     System.out.println("Incorrect Node format, ignored");
                 }
             }
-
-//            try{
-//                connection.close();
-//            }
-//            catch (SQLException e){
-//                System.out.println("connection not closed successfully");
-//            }
-
-
         }  catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
-
     }
 
     public static Connection getConnection() {
         return connection;
     }
 
+    /**
+     * public static void addNode(Node n) - use to add a node to the table and database
+     * @param n the nodeID to add, created a new node object
+     * @throws java.sql.SQLException problems sending node data to the database
+     */
     public static void addNode(Node n) throws java.sql.SQLException{
-
         try{
+            // creates a prepared statement to made the node
             PreparedStatement nodeStatement = connection.prepareStatement("Insert into Node values (?, ?, ?, ?, ?, ?, ?, ?)");
 
-            // can you mix prepared statement types? setString vs setNString?
             nodeStatement.setString(1, n.getNodeID());
             nodeStatement.setString(2, String.valueOf(n.getXCoord()));
             nodeStatement.setString(3, String.valueOf(n.getYCoord()));
@@ -182,69 +176,52 @@ public class DBController
             nodeStatement.setString(6, n.getNodeType());
             nodeStatement.setString(7, n.getLongName());
             nodeStatement.setString(8, n.getShortName());
-
-            nodeStatement.execute();
+            // inserts the node into the database
+            nodeStatement.executeUpdate();
         }
-        // table does not exist or some other error happened
-        catch (java.sql.SQLException e) {
-            //String exceptionString = String.format("NodeID nodeID:%s already exists", n.getNodeID());
-            //System.out.println(exceptionString);
-            //throw new java.sql.SQLException(exceptionString);
+        catch (SQLException e) {
             e.printStackTrace();
+            throw new java.sql.SQLException("NodeID nodeID:%s already exists", n.getNodeID());
         }
     }
 
-
-    public static void deleteNode(Node n) throws java.sql.SQLException{
-
+    /**
+     * public static void deleteNode(Node n) - use to delete a node object from the table and database
+     * @param n the node to delete
+     * @throws SQLException problems sending node data to the database
+     */
+    public static void deleteNode(Node n) throws SQLException{
         try{
+            // deletes the nodeID n from the database
             Statement nodeDelete = connection.createStatement();
             String deleteStatement = String.format("DELETE FROM Node WHERE nodeID='%s'", n.getNodeID());
             System.out.println(deleteStatement);
+            // inserts the node into the database
             nodeDelete.executeUpdate(deleteStatement);
-
         }
-        catch(java.sql.SQLException e){
-            String exceptionString = String.format("NodeID:%s does not exist in table", n.getNodeID());
-            System.out.println(exceptionString);
-            throw new java.sql.SQLException(exceptionString);
+        catch(SQLException e){
+            e.printStackTrace();
+            throw new SQLException("NodeID:%s does not exist in table", n.getNodeID());
         }
-
     }
 
-    public static void editNode(Node oldNode, Node newNode) throws java.sql.SQLException{
+    /**
+     * public static void editNode(Node oldNode, Node newNode) - use to edit a node object in the table and database
+     * @param oldNode the previous node to be deleted
+     * @param newNode the new node to replace the old node
+     * @throws SQLException problems sending node data to the database
+     */
+    public static void editNode(Node oldNode, Node newNode) throws SQLException{
         try{
             // nodeID should not be changed
             // sets all parts of the object to account for changes
-
+            // deleting the previous node and adding a new node with the same name is similar to editing the node
             deleteNode(oldNode);
             addNode(newNode);
-
-
-//            n.set = xCoord;
-//            this.yCoord = yCoord;
-//            this.floor = floor;
-//            this.building = building;
-//            this.nodeType = nodeType;
-//            this.longName = longName;
-//            this.shortName = shortName;
-//
-//            PreparedStatement editStatement = connection.prepareStatement("UPDATE Node SET XCOORD=?,YCOORD=?,FLOOR=?,BUILDING=?,NODETYPE=?,LONGNAME=?,SHORTNAME=? WHERE NODEID=?");
-//
-//            editStatement.setString(1, String.valueOf(xCoord));
-//            editStatement.setString(2, String.valueOf(yCoord));
-//            editStatement.setString(3, String.valueOf(floor));
-//            editStatement.setString(4, building);
-//            editStatement.setString(5, nodeType);
-//            editStatement.setString(6, longName);
-//            editStatement.setString(7, shortName);
-//            editStatement.setString(8, nodeID);
-//            // System.out.println(editStatement);
-//            editStatement.executeUpdate();
-
         }
-        catch(java.sql.SQLException e){
-            throw new java.sql.SQLException("Node does not exist");
+        catch(SQLException e){
+            e.printStackTrace();
+            throw new SQLException("Node does not exist");
         }
     }
 
