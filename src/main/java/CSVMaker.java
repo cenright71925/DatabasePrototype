@@ -2,7 +2,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
 
-public class CSVMaker {
+class CSVMaker {
 
     private static final String FILE_HEADER = "nodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName";
     private static final String COMMA_DELIMITER = ",";
@@ -13,7 +13,7 @@ public class CSVMaker {
      * also creates its own header to the csv
      * @param nodeList list of nodes used to populate the new csv
      */
-    public static void makeCSVFile(LinkedList<Node> nodeList)
+    static void makeCSVFile(LinkedList<Node> nodeList)
     {
         FileWriter fw = null;
 
@@ -55,7 +55,9 @@ public class CSVMaker {
             e.printStackTrace();
         } finally {
             // if the file is created the fileWriter should be destroyed
+            // file writer cannot be flushed if it is null
             try {
+                assert fw != null;
                 fw.flush();
                 fw.close();
             } catch (IOException | NullPointerException e) {
