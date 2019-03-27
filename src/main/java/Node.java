@@ -55,6 +55,9 @@ public class Node {
         return shortName;
     }
 
+    /**
+     * private void connection() establishes connection for a node
+     */
     private Connection connection;
     private void connection() {
         try {
