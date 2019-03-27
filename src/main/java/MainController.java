@@ -49,10 +49,12 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void downloadOnClick(ActionEvent event){
-        LinkedList<Node> nodeList = DBController.getNodeList();
-        CSVMaker.makeCSVFile(nodeList);
-        //here put code that needs to run to download the new CSV file
+    public void downloadOnClick() throws IOException{
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("DownloadScene.fxml"));
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.show();
     }
 
     @FXML
