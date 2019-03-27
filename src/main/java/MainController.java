@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 //import main.java.Node;//i had to comment this out fot it to run
 
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
@@ -34,11 +33,8 @@ public class MainController implements Initializable {
     @FXML TableColumn<Node, String> shortNameCol;
     private static ObservableList<Node> tableNodeList = FXCollections.observableArrayList();
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //btnModify.setDisable(true); //code to disable the Modify Node button until a node is selected from the table
-
         nodeIDCol.setCellValueFactory(new PropertyValueFactory<>("nodeID"));
         xCoordCol.setCellValueFactory(new PropertyValueFactory<>("xCoord"));
         yCoordCol.setCellValueFactory(new PropertyValueFactory<>("yCoord"));
@@ -47,12 +43,9 @@ public class MainController implements Initializable {
         nodeTypeCol.setCellValueFactory(new PropertyValueFactory<>("nodeType"));
         longNameCol.setCellValueFactory(new PropertyValueFactory<>("longName"));
         shortNameCol.setCellValueFactory(new PropertyValueFactory<>("shortName"));
-        //tableView.setItems(getNodes());
-        DBController.readFile();
         btnModify.setDisable(true);
         btnDownload.setDisable(true);
         btnUpdate.setDisable(true);
-
     }
 
     @FXML
@@ -61,46 +54,35 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void readOnClick(ActionEvent event){
-        //here put code to start the reading of the CSV file and populating the table full of data
-
-        tableNodeList.removeAll();
-        LinkedList<Node> fileReaderNodeList = DBController.getNodeList();
-        //System.out.println(FileReader.nodeList);
-        for(Node n: fileReaderNodeList)
-        {
-            tableNodeList.add(n);
-        }
-        System.out.println("List length is " + fileReaderNodeList.size());
-        tableView.setItems(tableNodeList);
+    public void readOnClick(){
+        DBController.readFile();
+        populateTableWithNodes();
         btnDownload.setDisable(false);
         btnModify.setDisable(false);
         btnUpdate.setDisable(false);
     }
 
     @FXML
-    public void modifyOnClick(ActionEvent event) throws IOException {
+    public void modifyOnClick() throws IOException {
         Stage stage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("ModifyScene.fxml"));
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
-
     }
 
     @FXML
     public void updateOnClick(){
         tableNodeList.clear();
+        populateTableWithNodes();
+    }
+
+    public void populateTableWithNodes(){
         LinkedList<Node> fileReaderNodeList = DBController.getNodeList();
-        for(Node n: fileReaderNodeList)
-        {
-            tableNodeList.add(n);
-        }
+        for(Node n: fileReaderNodeList) {tableNodeList.add(n);}
         System.out.println("List length is " + fileReaderNodeList.size());
         System.out.println("Table length is " + tableNodeList.size());
         tableView.setItems(tableNodeList);
     }
-
-
 
 }
