@@ -12,7 +12,8 @@ import java.io.File;
 public class DBController
 {
     private static Connection connection;
-    private static String path = "file:///" + System.getProperty("user.dir") +  "\\PrototypeNodes.csv";
+    private static String path = "file:///" + System.getProperty("user.dir") +  File.separator + "PrototypeNodes.csv";
+
     private static LinkedList<Node> nodeList = new LinkedList<>();
 
     private static void connection()
@@ -49,6 +50,8 @@ public class DBController
     static void readFile()
     {
         connection();
+
+        System.out.println(path);
 
         String fileName = "PrototypeNodes.csv";
 
