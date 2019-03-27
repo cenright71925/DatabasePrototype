@@ -6,7 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import javax.annotation.processing.Filer;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -24,22 +23,19 @@ public class ModifyController implements Initializable {
     @FXML Label errorLabel;
     boolean hasNode = false;
     String nodeID, building, nodeType, longName, shortName;
-    int xCoord, yCoord, floor;
+    int xCoord, yCoord, floor, element;
     Node curNode, delNode;
-    int element;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setDisableTF(true);
-
         btnEdit.setDisable(true);
         btnDelete.setDisable(true);
         btnAdd.setDisable(true);
     }
 
     @FXML
-    public void loadOnClick(ActionEvent event){
-
+    public void loadOnClick(){
         hasNode = false;
         LinkedList<Node> fileReaderNodeList = DBController.getNodeList();
         for(Node n: fileReaderNodeList){
@@ -52,7 +48,6 @@ public class ModifyController implements Initializable {
         if(hasNode){
             setDisableTF(false);
             nodeIDTF.setDisable(true);
-
             btnAdd.setDisable(false);
             btnDelete.setDisable(false);
             btnEdit.setDisable(false);
@@ -79,7 +74,6 @@ public class ModifyController implements Initializable {
             errorLabel.setText("Node Not Found. Create new node?");
             setDisableTF(false);
             nodeIDTF.setDisable(true);
-
             btnAdd.setDisable(false);
             btnDelete.setDisable(true);
             btnEdit.setDisable(true);
@@ -95,9 +89,8 @@ public class ModifyController implements Initializable {
     }
 
     @FXML
-    public void addOnClick(ActionEvent event) throws  IOException{
+    public void addOnClick(){
         getTextFieldEntries();
-
         Node newNode = new Node(nodeID, xCoord, yCoord, floor, building, nodeType, longName, shortName);
         LinkedList<Node> fileReaderNodeList = DBController.getNodeList();
         fileReaderNodeList.addFirst(newNode);
@@ -110,16 +103,13 @@ public class ModifyController implements Initializable {
             e.printStackTrace();
         }
 
-
-        //bellow closes the pop up window, everything above this in this method should handle the inputs from the TFs
-
         Stage stage;
         stage = (Stage) btnAdd.getScene().getWindow();
         stage.close();
     }
 
     @FXML
-    public void deleteOnClick(ActionEvent event) throws  IOException{
+    public void deleteOnClick(){
 
         element = 0;
         LinkedList<Node> fileReaderNodeList = DBController.getNodeList();
@@ -152,9 +142,8 @@ public class ModifyController implements Initializable {
     }
 
     @FXML
-    public void editOnClick(ActionEvent event) throws IOException{
+    public void editOnClick(){
         getTextFieldEntries();
-
         Node newNode = new Node(nodeID, xCoord, yCoord, floor, building, nodeType, longName, shortName);
 
         element = 0;
@@ -171,14 +160,12 @@ public class ModifyController implements Initializable {
         DBController.setNodeList(fileReaderNodeList);
 
         try{
-            //delNode.editNode(xCoord, yCoord, floor, building, nodeType, longName, shortName);
             DBController.editNode(delNode, newNode);
         }
         catch (SQLException e){
             e.printStackTrace();
         }
 
-        //bellow closes the pop up window, everything above this in this method should handle the inputs from the TFs
         Stage stage;
         stage = (Stage) btnEdit.getScene().getWindow();
         stage.close();
