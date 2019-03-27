@@ -21,8 +21,6 @@ public class Main extends Application {
         //FileReader.connection();
 
         launch(args);
-
-
     }
 
 
