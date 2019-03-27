@@ -69,10 +69,12 @@ public class MainController implements Initializable {
     @FXML
     public void readOnClick(){
         DBController.readFile();
+        System.out.println("file has been read");
         populateTableWithNodes();
         btnDownload.setDisable(false);
         btnModify.setDisable(false);
         btnUpdate.setDisable(false);
+        System.out.println("read on click has been finished");
     }
 
     /**

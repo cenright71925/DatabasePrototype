@@ -37,6 +37,7 @@ public class DBController {
     private static void connection() {
         try {
             // connects to the database
+            DriverManager.registerDriver(new org.apache.derby.jdbc.EmbeddedDriver());
             connection = DriverManager.getConnection("jdbc:derby:myDB;create=true");
         } catch (SQLException e) {
             System.out.println("Connection failed. Check output console.");
@@ -104,7 +105,7 @@ public class DBController {
 
             // reads through each node in the file
             while ((line = br.readLine()) != null) {
-                System.out.println("current line of csv: " + count);
+                //System.out.println("current line of csv: " + count);
                 count++;
 
                 try {
@@ -140,7 +141,7 @@ public class DBController {
                     // inserts the node into the database
                     pstmt2.executeUpdate();
 
-                    System.out.println("node inserted:" + count);
+                    //System.out.println("node inserted:" + count);
                 } catch (java.lang.NumberFormatException | SQLException e) {
                     // should only ignore the first node as it is the .csv column formatting
                     System.out.println("Incorrect Node format, ignored");

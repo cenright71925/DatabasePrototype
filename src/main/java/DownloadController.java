@@ -16,7 +16,7 @@ public class DownloadController {
     @FXML
     public void downloadOnClick(){
         LinkedList<Node> nodeList = DBController.getNodeList();
-        CSVMaker.makeCSVFile(nodeList);
+        CSVMaker.makeCSVFile(nodeList, "newCSVfile.csv");
         Stage stage;
         stage = (Stage) btnDownload.getScene().getWindow();
         stage.close();
@@ -27,6 +27,8 @@ public class DownloadController {
      */
     @FXML
     public void overwriteOnClick(){
+        LinkedList<Node> nodeList = DBController.getNodeList();
+        CSVMaker.makeCSVFile(nodeList, "PrototypeNodes.csv");
         Stage stage;
         stage = (Stage) btnDownload.getScene().getWindow();
         stage.close();
