@@ -21,7 +21,7 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <JFXButton fx:id="btnDownload" buttonType="RAISED" onAction="#downloadOnClick" stylesheets="@Styles.css" text="Download CSV File">
+                  <JFXButton fx:id="btnDownload" buttonType="RAISED" onAction="#downloadOnClick" stylesheets="@Styles.css" text="Download Data">
                      <font>
                         <Font size="19.0" />
                      </font>
