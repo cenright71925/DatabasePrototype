@@ -258,7 +258,7 @@ public class ModifyController implements Initializable {
      */
     public boolean validNode() {
         goodTF = true;
-        if (xCoordTF.getText().length() == 0) {
+        if (xCoordTF.getText().length() == 0 || xCoordTF.getText().length() > 10) {
             goodTF = false;
         }
         if (yCoordTF.getText().length() == 0) {
@@ -270,13 +270,13 @@ public class ModifyController implements Initializable {
         if (buildingTF.getText().length() == 0) {
             goodTF = false;
         }
-        if (nodeTypeTF.getText().length() == 0) {
+        if (nodeTypeTF.getText().length() == 0 || nodeTypeTF.getText().length() > 4) {
             goodTF = false;
         }
-        if (longNameTF.getText().length() == 0) {
+        if (longNameTF.getText().length() == 0 || longNameTF.getText().length() > 200) {
             goodTF = false;
         }
-        if (shortNameTF.getText().length() == 0) {
+        if (shortNameTF.getText().length() == 0 || shortNameTF.getText().length() > 50) {
             goodTF = false;
         }
         return goodTF;
