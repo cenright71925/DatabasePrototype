@@ -11,7 +11,7 @@ import java.io.File;
 
 public class DBController {
     private static Connection connection;
-    private static String path = "file:///" + System.getProperty("user.dir") + File.separator + "PrototypeNodes.csv";
+    private static String path = "PrototypeNodes.csv";
     private static LinkedList<Node> nodeList = new LinkedList<>();
 
     // getters for class attributes
@@ -70,9 +70,9 @@ public class DBController {
 
         try {
             // finds the path to the CSV file, works for both Mac and PC
-            URL filePath = new URL(path);
-            File csvFile = new File(filePath.toURI());
-            br = new BufferedReader(new java.io.FileReader(csvFile));
+//            URL filePath = new URL(path);
+//            File csvFile = new File(filePath.toURI());
+            br = new BufferedReader(new java.io.FileReader(path));
 
             try {
                 // tries to create the table, throws an exception if the table already exists
@@ -147,7 +147,7 @@ public class DBController {
                     System.out.println("Incorrect Node format, ignored");
                 }
             }
-        } catch (IOException | URISyntaxException e) {
+        } catch (IOException  e) {
             e.printStackTrace();
         }
     }
